@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نظام العملاء المطور</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+    body {
+      background-image: url('https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      padding: 30px;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .modal-header {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .table th {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .action-btns button {
+      margin: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container overlay">
+  <h2 class="text-center mb-4">📝  تسجيل بيانات العملاءAlmaviva</h2>
+
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal">
+      <i class="bi bi-person-plus"></i> إدخال عميل
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle text-center">
+      <thead>
+        <tr>
+          <th>الاسم الأول</th>
+          <th>الاسم الثاني</th>
+          <th>الإيميل</th>
+          <th>كلمة المرور</th>
+          <th>نوع التأشيرة</th>
+          <th>السعر</th>
+          <th>الموبايل</th>
+          <th>جهة المكتب</th>
+          <th>وصل إمتى</th>
+          <th>العمليات</th>
+        </tr>
+      </thead>
+      <tbody id="clientsTable">
+        <!-- الصفوف تُضاف تلقائيًا هنا -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- نافذة إدخال عميل -->
+<div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">إدخال عميل جديد</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body row g-3">
+        <div class="col-md-6">
+          <label>الاسم الأول</label>
+          <input type="text" class="form-control" id="firstName">
+        </div>
+        <div class="col-md-6">
+          <label>الاسم الثاني</label>
+          <input type="text" class="form-control" id="lastName">
+        </div>
+        <div class="col-md-6">
+          <label>الإيميل (اسم الأكونت)</label>
+          <input type="text" class="form-control" id="accountName">
+        </div>
+        <div class="col-md-6">
+          <label>كلمة المرور</label>
+          <input type="password" class="form-control" id="password">
+        </div>
+        <div class="col-md-6">
+          <label>نوع التأشيرة</label>
+          <select class="form-select" id="visaType">
+            <option>سياحة</option>
+            <option>عمل</option>
+            <option>بيزنس</option>
+            <option>لم الشمل</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>السعر</label>
+          <input type="number" class="form-control" id="price">
+        </div>
+        <div class="col-md-6">
+          <label>رقم الموبايل</label>
+          <input type="text" class="form-control" id="phone">
+        </div>
+        <div class="col-md-6">
+          <label>جهة المكتب</label>
+          <input type="text" class="form-control" id="office">
+        </div>
+        <div class="col-md-12">
+          <label>وصل إمتى</label>
+          <input type="text" class="form-control" id="arrival">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" onclick="addClient()">
+          <i class="bi bi-check2-circle"></i> حفظ
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function addClient() {
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const name = document.getElementById('accountName').value;
+    const pass = document.getElementById('password').value;
+    const visa = document.getElementById('visaType').value;
+    const price = document.getElementById('price').value;
+    const phone = document.getElementById('phone').value;
+    const office = document.getElementById('office').value;
+    const arrival = document.getElementById('arrival').value;
+
+    if (!firstName || !lastName || !name || !pass || !price || !phone || !office) {
+      alert("يرجى إدخال جميع البيانات");
+      return;
+    }
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${firstName}</td>
+      <td>${lastName}</td>
+      <td>${name}</td>
+      <td>${pass}</td>
+      <td>${visa}</td>
+      <td>${price} جنيه</td>
+      <td>${phone}</td>
+      <td>${office}</td>
+      <td>${arrival}</td>
+      <td class="action-btns">
+        <button class="btn btn-outline-success btn-sm" onclick="markBooked(this)">
+          ✅ تم الحجز
+        </button>
+        <button class="btn btn-outline-primary btn-sm" onclick="markBookedWant(this)">
+          📌 تم الحجز وعاوز
+        </button>
+      </td>
+    `;
+    document.getElementById('clientsTable').appendChild(row);
+    document.querySelector('#clientModal .btn-close').click();
+    clearInputs();
+  }
+
+  function markBooked(btn) {
+    btn.closest('td').innerHTML = `<span class="text-success fw-bold">✅ تم الحجز</span>`;
+  }
+
+  function markBookedWant(btn) {
+    btn.closest('td').innerHTML = `<span class="text-primary fw-bold">📌 تم الحجز وعاوز</span>`;
+  }
+
+  function clearInputs() {
+    ['firstName', 'lastName', 'accountName', 'password', 'price', 'phone', 'office', 'arrival'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
