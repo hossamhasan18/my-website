@@ -45,3 +45,17 @@ if (reviewBtn) { // لو الزرار موجود فعلاً في الصفحة
         // باقي الكود بتاعك هنا
     });
 }
+window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    
+    // بنستنى ثانية واحدة عشان هيبة اللوجو تظهر وبعدين نخفيه
+    setTimeout(() => {
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+        
+        // بعد ما يختفي تماماً بنشيله من الصفحة عشان ميعطلش اللمس (Touch)
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 500);
+    }, 1000); 
+});
