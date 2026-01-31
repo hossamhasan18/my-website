@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجز موعد | النائب عبده مأمون</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="appointment.css">
+</head>
+<body class="bg-black text-white">
+
+    <div id="loader-wrapper">
+        <div class="loader-content text-center">
+            <img src="logo.png" alt="Logo" class="loader-logo">
+            <div class="gold-spinner mt-3"></div>
+            <p class="brand-ruqaa gold-text mt-3 h4">النائب عبده مأمون</p>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top shadow-lg">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="logo.png" alt="شعار" height="50" class="navbar-logo">
+                <div class="brand-name-adjust brand-ruqaa text-white ms-3">
+                    النائب <span class="gold-text">عَبْدُه مَأْمُون</span>
+                </div>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars gold-text"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link px-3" href="index.html">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link active px-3" href="#">حجز موعد</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="File_a_complaint.html">تقديم شكوى</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-5 mt-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h1 class="brand-ruqaa gold-text display-4">منظومة الحجز الذكي</h1>
+                <p class="text-secondary">قم بتحديد التاريخ والوقت المناسب للمقابلة الرسمية</p>
+            </div>
+
+            <div class="booking-card main-frame-luxury shadow-lg">
+                <div class="row g-0">
+                    
+                    <div class="col-lg-5 p-4 p-md-5 order-2 order-lg-1 content-glass border-end-gold">
+                        <div class="d-flex align-items-center mb-4 gap-3">
+                            <div class="gold-icon-box-sm">
+                                <i class="fas fa-clock gold-text"></i>
+                            </div>
+                            <h5 class="gold-text brand-ruqaa mb-0">توقيت المقابلة</h5>
+                        </div>
+                        
+                        <div class="time-selection-wrapper">
+                            <p class="text-secondary small mb-3">اليوم المختار: <span id="current-day-label" class="gold-text fw-bold">8 فبراير 2026</span></p>
+                            <div class="time-grid" id="timeGrid">
+                                <button class="time-btn active">09:00</button>
+                                <button class="time-btn">09:30</button>
+                                <button class="time-btn disabled">10:00</button>
+                                <button class="time-btn">10:30</button>
+                                <button class="time-btn">11:00</button>
+                                <button class="time-btn">11:30</button>
+                                <button class="time-btn">12:00</button>
+                                <button class="time-btn">12:30</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <button class="btn-gold-fill w-100 py-3 fw-bold shadow-gold">تأكيد الموعد المختار</button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 p-4 p-md-5 calendar-luxury order-1 order-lg-2">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+                            <div>
+                                <h4 class="gold-text brand-ruqaa mb-1">اختر التاريخ</h4>
+                                <p class="text-secondary small mb-0">يرجى الضغط على اليوم المطلوب</p>
+                            </div>
+                            <div class="gold-border-tag px-4 py-2 bg-black">
+                                <span class="text-white fw-bold">فبراير 2026</span>
+                            </div>
+                        </div>
+
+                        <div class="calendar-grid-container">
+                            <div class="week-header mb-3">
+                                <div>ح</div> <div>ن</div> <div>ث</div> <div>ر</div> <div>خ</div> <div>ج</div> <div>س</div>
+                            </div>
+                            <div class="days-grid">
+                                <div class="day-item muted">1</div><div class="day-item muted">2</div>
+                                <div class="day-item muted">3</div><div class="day-item muted">4</div>
+                                <div class="day-item muted">5</div><div class="day-item muted">6</div>
+                                <div class="day-item muted">7</div>
+                                <div class="day-item active">8</div><div class="day-item">9</div>
+                                <div class="day-item">10</div><div class="day-item">11</div>
+                                <div class="day-item">12</div><div class="day-item">13</div>
+                                <div class="day-item">14</div><div class="day-item">15</div>
+                                <div class="day-item">16</div><div class="day-item">17</div>
+                                <div class="day-item">18</div><div class="day-item">19</div>
+                                <div class="day-item">20</div><div class="day-item">21</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer py-4 border-top border-gold-low text-center">
+        <p class="mb-0 text-secondary small px-3">جميع الحقوق محفوظة © 2026 | تم التطوير بواسطه  
+            <a href="https://www.facebook.com/share/1CP56wfhzW/?mibextid=wwXIfr" >المهندس حسام حسن </a>
+        </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="appointment.js"></script>
+</body>
+</html>

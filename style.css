@@ -1,0 +1,260 @@
+/* --- المتغيرات الأساسية --- */
+:root {
+    --black: #080808;
+    --dark-gray: #121212;
+    --gold: #D4AF37;
+    --gold-hover: #F9E5BC;
+    --gold-low: rgba(212, 175, 55, 0.2);
+    --white: #ffffff;
+}
+
+/* --- التنسيقات العامة --- */
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+    direction: rtl;
+    overflow-x: hidden;
+}
+
+/* --- شاشة التحميل (Preloader) --- */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--black); display: flex; justify-content: center;
+    align-items: center; z-index: 9999; transition: 0.5s;
+}
+.loader-content { position: relative; text-align: center; }
+.loader-circle {
+    width: 120px; height: 120px; border: 3px solid transparent;
+    border-top: 3px solid var(--gold); border-bottom: 3px solid var(--gold);
+    border-radius: 50%; animation: spin 1.5s linear infinite;
+}
+.loader-img { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); width: 65px; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.loader-hidden { opacity: 0; visibility: hidden; }
+
+/* --- الناف بار (Navbar) --- */
+.navbar {
+    background: rgba(8, 8, 8, 0.98) !important;
+    border-bottom: 1px solid var(--gold-low);
+    padding: 10px 0;
+    transition: 0.4s;
+    z-index: 1000;
+}
+.navbar-logo { height: 45px; width: auto; margin-left: 10px; }
+.brand-name-adjust {
+    font-family: 'Aref Ruqaa', serif !important;
+    font-size: 1.5rem;
+    color: var(--white) !important;
+}
+.gold-text { color: var(--gold) !important; }
+.nav-link { color: var(--white) !important; font-weight: 600; transition: 0.3s; }
+.nav-link:hover { color: var(--gold) !important; }
+
+/* --- تصغير الثلاث شرط (Navbar Toggler) --- */
+.navbar-toggler {
+    padding: 4px 8px; /* تصغير مساحة الضغط */
+    font-size: 0.85rem; /* تصغير حجم الثلاث شرط */
+    border: 1px solid var(--gold-low) !important; /* برواز خفيف جداً */
+    outline: none !important;
+    box-shadow: none !important;
+}
+.navbar-toggler i {
+    color: var(--gold); /* لون ذهبي للشرط */
+}
+
+/* --- الهيرو (Hero Section) --- */
+.hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 0 60px 0;
+}
+.hero-main-frame {
+    background: rgba(18, 18, 18, 0.5); border: 1px solid var(--gold-low);
+    border-radius: 25px; overflow: hidden; transition: 0.5s; backdrop-filter: blur(10px);
+}
+.hero-main-frame:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.15);
+}
+.hero-name { font-family: 'Aref Ruqaa', serif !important; font-size: 5rem; margin-bottom: 20px; }
+.official-tag {
+    border: 1px solid var(--gold); padding: 5px 20px; border-radius: 50px;
+    font-size: 0.9rem; background: rgba(212, 175, 55, 0.05);
+}
+
+/* --- الأزرار (Buttons) --- */
+.btn-gold-fill {
+    background: var(--gold); color: black !important; font-weight: bold;
+    padding: 14px 35px; border-radius: 5px; border: 1px solid var(--gold); transition: 0.4s;
+}
+.btn-outline-gold {
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 14px 35px; border-radius: 5px; transition: 0.4s;
+}
+.btn-gold-outline-sm {
+    border: 1px solid var(--gold); color: var(--white) !important;
+    padding: 12px 35px; border-radius: 5px; font-weight: bold;
+    transition: 0.4s; text-decoration: none; display: inline-block;
+}
+.hover-gold-effect:hover {
+    background: var(--gold) !important; color: black !important;
+    box-shadow: 0 0 20px var(--gold); transform: translateY(-3px);
+}
+
+/* --- كروت الخدمات (Cards) --- */
+.service-card {
+    background: var(--dark-gray); border: 1px solid #222;
+    border-radius: 20px; transition: 0.4s;
+}
+.gold-border-hover:hover { border-color: var(--gold); transform: translateY(-10px); }
+
+/* --- الصور --- */
+.deputy-img-final { width: 100%; height: auto; filter: drop-shadow(-10px 10px 25px rgba(0,0,0,0.6)); }
+
+/* --- التوافق مع الشاشات (Responsive) --- */
+@media (max-width: 991px) {
+    .hero-name { font-size: 2.8rem !important; }
+    .hero-main-frame { margin: 0 15px; }
+    .content-column { order: 2; padding: 40px 20px !important; }
+    .img-column { order: 1; }
+    .btn-gold-fill, .btn-outline-gold { width: 100%; margin-bottom: 15px; margin-right: 0 !important; }
+    
+    /* تصغير النافبار في الموبايل */
+    .navbar-logo { height: 35px; }
+    .brand-name-adjust { font-size: 1.1rem; }
+}
+
+@media (max-width: 576px) {
+    .hero-name { font-size: 2.2rem !important; }
+    .service-card { padding: 30px 15px !important; }
+}
+/* --- سيكشن الأخبار --- */
+.news-card {
+    background: var(--dark-gray);
+    border: 1px solid #222;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s;
+}
+
+.news-img-box {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+}
+
+.news-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.news-card:hover .news-img-box img {
+    transform: scale(1.1);
+}
+
+.news-date {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: var(--gold);
+    color: black;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.read-more {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.read-more:hover {
+    color: var(--gold);
+}
+
+.read-more i {
+    font-size: 0.7rem;
+    transition: 0.3s;
+}
+
+.read-more:hover i {
+    transform: translateX(-5px);
+}
+
+/* تعديل المسافات في الموبايل للأخبار */
+@media (max-width: 768px) {
+    .news-section h2 {
+        font-size: 1.5rem;
+    }
+}
+/* --- سيكشن عن النائب --- */
+.about-deputy {
+    background: linear-gradient(to bottom, #080808, #121212);
+}
+
+.about-img-frame {
+    position: relative;
+    padding: 15px;
+    border: 1px solid var(--gold-low);
+    border-radius: 20px;
+}
+
+.about-img-frame::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 50px;
+    height: 50px;
+    border-top: 3px solid var(--gold);
+    border-left: 3px solid var(--gold);
+}
+
+.about-img {
+    border-radius: 15px;
+    filter: grayscale(30%);
+    transition: 0.5s;
+}
+
+.about-img:hover {
+    filter: grayscale(0%);
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    height: 100%;
+}
+
+.border-right-gold {
+    border-right: 4px solid var(--gold);
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 0 10px 10px 0;
+}
+
+/* تعديل للموبايل */
+@media (max-width: 991px) {
+    .about-img-frame {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+    
+
+
+/* تنسيق اللينكات (وسم A) والنافبار بخط الرقعة */
+
+a {
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    font-size: 12px;
+    color: aliceblue;
+}
+

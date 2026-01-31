@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل البيانات | النائب عبده مأمون</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="appointment.css">
+</head>
+<body class="bg-black text-white">
+
+    <div id="loader-wrapper">
+        <div class="loader-content text-center">
+            <img src="logo.png" alt="Logo" class="loader-logo mb-3">
+            <div class="gold-spinner mx-auto"></div>
+            <p class="brand-ruqaa gold-text mt-3 h4">النائب عبده مأمون</p>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top shadow-lg">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="logo.png" alt="شعار" height="50">
+                <div class="brand-name-adjust brand-ruqaa text-white ms-3">
+                    النائب <span class="gold-text">عَبْدُه مَأْمُون</span>
+                </div>
+            </a>
+            <a href="index.html" class="btn-gold-outline-sm no-underline brand-ruqaa">
+                الرئيسية <i class="fas fa-home ms-2"></i>
+            </a>
+        </div>
+    </nav>
+
+    <main class="py-5 mt-5">
+        <div class="container py-5">
+            <div class="max-w-4xl mx-auto mt-4">
+                <div class="main-frame-luxury shadow-lg p-4 p-md-5">
+                    <h2 class="brand-ruqaa gold-text text-center mb-5">تسجيل بيانات طلب المقابلة</h2>
+                    
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="gold-text brand-ruqaa h5 mb-3">الاسم الأول *</label>
+                            <input type="text" class="form-control-custom w-100" placeholder="أدخل اسمك">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="gold-text brand-ruqaa h5 mb-3">الاسم الثاني *</label>
+                            <input type="text" class="form-control-custom w-100" placeholder="اسم العائلة">
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="gold-text brand-ruqaa h5 mb-3">رقم الموبايل *</label>
+                            <input type="tel" class="form-control-custom w-100 text-start" dir="ltr" placeholder="01xxxxxxxxx">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="gold-text brand-ruqaa h5 mb-3">رقم البطاقة الشخصية *</label>
+                            <input type="text" maxlength="14" class="form-control-custom w-100 text-start" dir="ltr" placeholder="14 رقم">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="gold-text brand-ruqaa h5 mb-3">البلد / القرية *</label>
+                        <input type="text" class="form-control-custom w-100" placeholder="اسم المنطقة">
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="gold-text brand-ruqaa h5 mb-3">الموعد بخصوص *</label>
+                        <textarea class="form-control-custom w-100" rows="3" placeholder="سبب المقابلة"></textarea>
+                    </div>
+
+                    <a href="appointment.html" class="btn-gold-fill w-100 py-3 fw-bold h4 brand-ruqaa no-underline">
+                        التالي: اختيار وقت المقابلة <i class="fas fa-arrow-left ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader-wrapper');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }, 1000); 
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+/* 1. المتغيرات الأساسية */
+:root {
+    --black: #080808;
+    --dark-grey: #121212;
+    --gold: #D4AF37;
+    --gold-low: rgba(212, 175, 55, 0.2);
+    --white: #ffffff;
+}
+
+/* 2. التنسيقات العامة */
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+    margin: 0;
+    padding: 0;
+}
+
+
+.brand-ruqaa { font-family: 'Aref Ruqaa', serif; }
+.gold-text { color: var(--gold); }
+.max-w-4xl { max-width: 850px; margin: 0 auto; }
+
+/* 3. الناف بار */
+.navbar {
+    background: rgba(8, 8, 8, 0.98);
+    border-bottom: 1px solid var(--gold-low);
+    backdrop-filter: blur(10px);
+}
+.navbar-logo { height: 45px; margin-left: 10px; }
+
+/* 4. زر مراجعة الطلب العلوي */
+.btn-review-order {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn-review-order:hover {
+    background: var(--gold);
+    color: black !important;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* 5. كارت النموذج الرئيسي */
+.hero-main-frame {
+    background: var(--dark-grey);
+    border: 1px solid var(--gold-low);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+}
+
+.bg-gold-fade {
+    background: linear-gradient(to left, rgba(212, 175, 55, 0.05), transparent);
+}
+
+.gold-icon-box {
+    width: 60px;
+    height: 60px;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--gold);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 6. تنسيق الحقول (Inputs & Selects) */
+.form-control-custom {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--gold-low) !important;
+    border-radius: 12px !important;
+    padding: 14px 18px !important;
+    color: white !important;
+    outline: none !important;
+    transition: all 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* منع ظهور أي خطوط بيضاء عند الضغط */
+.form-control-custom:focus {
+    border-color: var(--gold) !important;
+    background: rgba(212, 175, 55, 0.07) !important;
+    box-shadow: none !important;
+}
+
+/* 7. حل مشكلة قائمة القرى والتصنيف (الاختيارات) */
+select.form-control-custom {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23D4AF37' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: left 1rem center;
+    background-size: 16px 12px;
+}
+
+/* هذا الجزء يضمن ظهور الكلام داخل القائمة بوضوح */
+select.form-control-custom option {
+    background-color: #1a1a1a !important; /* خلفية داكنة */
+    color: #ffffff !important;           /* خط أبيض */
+    padding: 15px !important;
+}
+
+/* 8. الراديو بوتون (طلب خاص / عام) */
+.btn-gold-outline-sm {
+    border: 1px solid var(--gold-low);
+    color: var(--white);
+    background: transparent;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn-check:checked + .btn-gold-outline-sm {
+    background-color: var(--gold) !important;
+    border-color: var(--gold) !important;
+    color: black !important;
+    font-weight: bold;
+}
+
+/* 9. زر الإرسال والملفات */
+.btn-gold-fill {
+    background: var(--gold);
+    color: black !important;
+    border: none;
+    border-radius: 12px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-gold-fill:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.cursor-pointer { cursor: pointer; }
+
+/* 10. إزالة أي حواف بيضاء افتراضية من المتصفح */
+::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px var(--black) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+/* تنسيق الناف بار المظبوط */
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important; /* توسيط عمودي مبدئي */
+    gap: 12px; /* المسافة بين الشعار والاسم */
+    text-decoration: none !important;
+}
+
+.navbar-logo {
+    height: 55px !important; /* حجم الشعار */
+    width: auto;
+    display: block;
+}
+
+.brand-name-adjust {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 1.6rem !important;
+    color: white !important;
+    /* اللمسة السحرية: تنزيل الكلمة سنة بسيطة لتحاذي نصف الشعار */
+    margin-top: 8px; 
+    white-space: nowrap; /* منع الكلمة من النزول لسطر جديد */
+}
+
+/* للموبايل: تصغير الخط شوية عشان ميزاحمش زرار الرئيسية */
+@media (max-width: 576px) {
+    .brand-name-adjust {
+        font-size: 1.2rem !important;
+        margin-top: 5px;
+    }
+    .navbar-logo {
+        height: 45px !important;
+    }
+}
+/* ضبط الناف بار */
+.navbar {
+    background: rgba(8, 8, 8, 0.98) !important;
+    border-bottom: 2px solid var(--gold-low) !important;
+    padding: 10px 0 !important;
+    backdrop-filter: blur(15px);
+}
+
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px; /* مسافة بين اللوجو والاسم */
+    text-decoration: none !important;
+}
+
+.navbar-logo {
+    height: 55px !important; /* تكبير اللوجو شوية عشان يوضح */
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-name-adjust {
+    font-size: 1.5rem !important;
+    color: white !important;
+    font-family: 'Aref Ruqaa', serif;
+    line-height: 1;
+}
+
+/* زرار الرئيسية في الناف بار */
+.btn-gold-outline-sm {
+    border: 1px solid var(--gold) !important;
+    color: var(--gold) !important;
+    padding: 8px 20px !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    transition: 0.3s all ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.btn-gold-outline-sm:hover {
+    background: var(--gold) !important;
+    color: black !important;
+}
+
+.no-underline { text-decoration: none !important; }
+/* --- شاشة التحميل Preloader --- */
+#loader-wrapper {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+.loader-content { text-align: center; }
+
+.loader-logo {
+    height: 80px;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.gold-spinner {
+    width: 40px; height: 40px;
+    border: 3px solid rgba(212, 175, 55, 0.1);
+    border-top: 3px solid var(--gold);
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+
+/* --- ضبط الناف بار والاسم --- */
+.navbar-brand { gap: 12px; }
+.navbar-logo { height: 55px !important; }
+
+.brand-name-adjust {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 1.6rem !important;
+    margin-top: 10px; /* السنة البسيطة اللي طلبتها */
+    white-space: nowrap;
+}
+
+.btn-gold-outline-sm {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+:root {
+    --gold: #D4AF37;
+    --gold-hover: #b8962d;
+    --gold-low: rgba(212, 175, 55, 0.1);
+    --dark-bg: #080808;
+    --card-bg: #121212;
+}
+
+body {
+    background-color: var(--dark-bg);
+    font-family: 'Cairo', sans-serif;
+}
+
+/* --- شاشة التحميل (Preloader) --- */
+#loader-wrapper {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: 0.5s;
+}
+.loader-logo { width: 80px; animation: pulse 2s infinite; }
+.gold-spinner {
+    width: 50px; height: 50px; border: 3px solid transparent;
+    border-top: 3px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* --- النافبار (نفس ستايل الشكاوى) --- */
+.navbar {
+    background: rgba(8, 8, 8, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gold-low);
+    padding: 12px 0;
+}
+.brand-name-adjust { font-size: 1.3rem; font-weight: 700; }
+.brand-ruqaa { font-family: 'Aref Ruqaa', serif !important; }
+.gold-text { color: var(--gold) !important; }
+.nav-link { color: white !important; font-size: 0.95rem; margin: 0 5px; transition: 0.3s; }
+.nav-link:hover, .nav-link.active { color: var(--gold) !important; }
+
+/* --- الكارت الرئيسي --- */
+.main-frame-luxury {
+    background: var(--card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+}
+.main-frame-luxury::before {
+    content: ""; position: absolute; top: 0; right: 0; width: 60px; height: 60px;
+    border-top: 3px solid var(--gold); border-right: 3px solid var(--gold); border-radius: 0 30px 0 0;
+}
+
+/* --- النتيجة --- */
+.calendar-luxury { background: linear-gradient(145deg, #151515, #0a0a0a); }
+.week-header { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; color: var(--gold); font-weight: 700; }
+.days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.day-item {
+    aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, 0.03); border-radius: 12px; cursor: pointer; transition: 0.3s;
+}
+.day-item:hover:not(.muted) { background: var(--gold-low); border: 1px solid var(--gold); color: var(--gold); transform: translateY(-3px); }
+.day-item.active { background: var(--gold) !important; color: black !important; font-weight: bold; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+.day-item.muted { opacity: 0.1; cursor: default; }
+
+/* --- الوقت --- */
+.content-glass { background: rgba(0,0,0,0.2); }
+.border-end-gold { border-left: 1px solid var(--gold-low); }
+.time-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.time-btn {
+    background: #1a1a1a; border: 1px solid #333; color: white; padding: 12px;
+    border-radius: 12px; transition: 0.3s; font-size: 0.9rem; font-weight: 600;
+}
+.time-btn.active { background: var(--gold); color: black; border-color: var(--gold); }
+.time-btn.disabled { opacity: 0.1; cursor: not-allowed; }
+
+/* --- الأزرار --- */
+.btn-gold-fill { background: var(--gold); color: black; border: none; border-radius: 15px; transition: 0.3s; }
+.btn-gold-fill:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+.gold-border-tag { border: 1px solid var(--gold); border-radius: 50px; }
+.gold-icon-box-sm { background: var(--gold-low); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+
+@media (max-width: 991px) {
+    .border-end-gold { border: none; border-bottom: 1px solid var(--gold-low); }
+    .brand-name-adjust { font-size: 1.1rem; }
+}
+
+a {
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    font-size: 12px;
+    color: aliceblue;
+}
