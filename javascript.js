@@ -117,3 +117,68 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+// Preloader
+window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.classList.add('loader-hidden');
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 500);
+    }
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.padding = '8px 0';
+        navbar.style.backgroundColor = 'rgba(8, 8, 8, 0.95)';
+    } else {
+        navbar.style.padding = '12px 0';
+        navbar.style.backgroundColor = 'rgba(8, 8, 8, 0.98)';
+    }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Mobile menu close on click
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        if (navbarCollapse.classList.contains('show')) {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            navbarToggler.click();
+        }
+    });
+});
+
+// Card hover effect for touch devices
+if ('ontouchstart' in window) {
+    document.querySelectorAll('.service-card, .news-card').forEach(card => {
+        card.addEventListener('touchstart', function() {
+            this.classList.add('gold-border-hover');
+        });
+        
+        card.addEventListener('touchend', function() {
+            setTimeout(() => {
+                this.classList.remove('gold-border-hover');
+            }, 300);
+        });
+    });
+}

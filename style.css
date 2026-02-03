@@ -35,18 +35,23 @@ body {
 
 /* --- الناف بار (Navbar) معدل --- */
 .navbar {
-    background: rgba(8, 8, 8, 0.98) !important;
-    border-bottom: 1px solid var(--gold-low);
-    padding: 10px 0;
-    transition: 0.4s;
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
+    /* الكود القديم بتاعك */
+    display: flex !important;
+    flex-wrap: nowrap !important; /* بيمنع العناصر إنها تهرب تحت بعضها */
+    align-items: center;
 }
-
+@media (max-width: 991px) {
+    .navbar-brand {
+        display: flex !important;
+        flex-shrink: 0 !important; /* بيمنع اللوجو والاسم إنهم ينضغطوا أو يختفوا */
+        align-items: center;
+    }
+    
+    .brand-name-adjust {
+        white-space: nowrap !important; /* بيمنع الكلمة تنقسم سطرين */
+        overflow: visible !important;
+    }
+}
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -62,10 +67,12 @@ body {
     order: 1;
 }
 
-.navbar-logo { 
-    height: 45px; 
-    width: auto; 
-    margin-left: 10px; 
+.navbar-logo {
+    height: 45px;
+    width: auto;
+    min-width: 45px; /* بيجبر المتصفح يحجز مكان للوجو حتى قبل ما يحمل */
+    margin-left: 10px;
+    object-fit: contain;
 }
 
 .brand-name-adjust {
