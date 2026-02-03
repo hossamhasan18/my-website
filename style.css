@@ -1,4 +1,10 @@
 /* --- المتغيرات الأساسية --- */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* بيقص أي حاجة تخرج بره عرض الشاشة */
+    margin: 0;
+    padding: 0;
+}
 :root {
     --black: #080808;
     --dark-gray: #121212;

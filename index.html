@@ -2,9 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>الموقع الرسمي | النائب عبده مأمون</title>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* أهم كود لمنع السكرول العرضي في الموبايل */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
         .bg-darker { background: #0a0a0a; }
         .border-gold-low { border: 1px solid rgba(197, 160, 89, 0.3) !important; }
         .info-item { transition: 0.3s; background: #111 !important; height: 100%; }
@@ -23,7 +30,6 @@
         }
         .vision-card { border-right: 3px solid #c5a059; background: rgba(197, 160, 89, 0.05); padding: 20px; border-radius: 0 15px 15px 0; }
         
-        /* جعل الإحصائيات شفافة وبدون حدود تماماً */
         .stat-item {
             padding: 20px;
             background: transparent !important;
@@ -33,6 +39,14 @@
             font-size: 3.5rem;
             text-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
         }
+
+        /* تعديلات الموبايل الإضافية لضمان عدم اختفاء اللوجو */
+        @media (max-width: 991px) {
+            .navbar-brand { font-size: 0.9rem !important; }
+            .navbar-logo { height: 35px !important; }
+            .hero-name { font-size: 2.8rem !important; }
+            .experience-badge { right: 5px; bottom: 5px; padding: 8px 15px; }
+        }
     </style>
 </head>
 <body>
@@ -40,7 +54,7 @@
     <div id="preloader">
         <div class="loader-content">
             <div class="loader-circle"></div>
-            <img src="logo.png" alt="شعار مجلس النواب" class="loader-img">
+            <img src="logo.png" alt="شعار" class="loader-img">
             <h5 class="gold-text mt-3 brand-ruqaa">عبده مأمون</h5>
         </div>
     </div>
@@ -48,7 +62,7 @@
     <nav class="navbar navbar-expand-lg fixed-top shadow-lg" id="mainNavbar">
         <div class="container">
             <a class="navbar-brand brand-ruqaa d-flex align-items-center" href="#home">
-                <img src="logo.png" alt="شعار مجلس الشعب" class="navbar-logo">
+                <img src="logo.png" alt="شعار" class="navbar-logo">
                 <span class="brand-name-adjust">النائب <span class="gold-text">عَبْدُه مَأْمُون</span></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -98,7 +112,7 @@
             <div class="row g-4">
                 <div class="col-md-6" data-aos="flip-right">
                     <div class="card service-card p-4 p-md-5 gold-border-hover h-100">
-                        <i class="fas fa-lightbulb fa-3x gold-text mb-4"></i>                    
+                        <i class="fas fa-lightbulb fa-3x gold-text mb-4"></i>                     
                         <h3 class="text-white">بوابة المقترحات</h3>
                         <p class="text-secondary small">شاركنا برؤيتك لتطوير الدائرة، مقترحك محل اهتمام ودراسة.</p>
                         <a href="suggestion.html" class="btn btn-gold-outline-sm hover-gold-effect mt-3">ارسل مقترحك</a>
@@ -163,8 +177,6 @@
         </div>
     </section>
 
-
-
     <section class="news-section py-5 bg-darker" id="news">
         <div class="container py-5">
             <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-up">
@@ -176,6 +188,7 @@
             </div>
         </div>
     </section>
+
     <section class="stats py-5 bg-darker">
         <div class="container">
             <div class="row g-4 text-center">
@@ -200,20 +213,22 @@
             </div>
         </div>
     </section>
-<div class="modal fade" id="newsDetailModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content bg-black border-gold-low text-white">
-            <div class="modal-header border-gold-low">
-                <h5 class="modal-title gold-text brand-ruqaa" id="modalTitle"></h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-end">
-                <img src="" id="modalImg" class="img-fluid rounded mb-4 w-100" style="max-height: 400px;">
-                <div id="modalBody" class="text-light-gray"></div>
+
+    <div class="modal fade" id="newsDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-black border-gold-low text-white">
+                <div class="modal-header border-gold-low">
+                    <h5 class="modal-title gold-text brand-ruqaa" id="modalTitle"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-end">
+                    <img src="" id="modalImg" class="img-fluid rounded mb-4 w-100" style="max-height: 400px;">
+                    <div id="modalBody" class="text-light-gray"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
     <footer class="footer py-5 border-top border-gold-low text-center">
         <div class="container">
             <img src="logo.png" alt="شعار" width="60" class="mb-3">
@@ -232,8 +247,6 @@
     <script src="javascript.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-
-        // وظيفة جلب البيانات - AJAX
         function updateStats() {
             fetch('get_stats.php')
                 .then(response => response.json())
