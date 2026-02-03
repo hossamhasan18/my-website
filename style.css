@@ -16,7 +16,18 @@ body {
     direction: rtl;
     overflow-x: hidden;
 }
+/* منع التمدد الأفقي في كل الشاشات */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
 
+/* ضمان مرونة الصور */
+img {
+    max-width: 100%;
+    height: auto;
+}
 /* --- شاشة التحميل (Preloader) --- */
 #preloader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -34,23 +45,12 @@ body {
 .loader-hidden { opacity: 0; visibility: hidden; }
 
 /* --- الناف بار (Navbar) --- */
-/* --- الناف بار المطور لمنع التعليق --- */
 .navbar {
-    background: #080808 !important; /* لون صريح بدون شفافية لمنع تهنيج الرندر */
+    background: rgba(8, 8, 8, 0.98) !important;
     border-bottom: 1px solid var(--gold-low);
     padding: 10px 0;
     transition: 0.4s;
-    z-index: 2000 !important; /* رفع الترتيب لضمان ظهوره فوق كل شيء */
-    position: fixed !important; /* تثبيت مكانه أثناء السكرول */
-    top: 0;
-    width: 100%;
-    backdrop-filter: none !important; /* إلغاء البلور في الموبايل لأنه يسبب ثقل */
-}
-
-/* لضمان خلفية سوداء للقائمة المنسدلة في الموبايل */
-.navbar-collapse {
-    background: #080808 !important;
-    z-index: 2000;
+    z-index: 1000;
 }
 .navbar-logo { height: 45px; width: auto; margin-left: 10px; }
 .brand-name-adjust {
@@ -139,18 +139,6 @@ body {
 @media (max-width: 576px) {
     .hero-name { font-size: 2.2rem !important; }
     .service-card { padding: 30px 15px !important; }
-}
-@media (max-width: 991px) {
-    /* تأكد من إضافة مسافة علوية للهيرو لأن النافبار أصبح Fixed */
-    .hero { 
-        padding-top: 100px !important; 
-    }
-    
-    /* منع الـ Navbar من التمدد بشكل خاطئ */
-    .navbar-nav {
-        padding-top: 15px;
-        text-align: center;
-    }
 }
 /* --- سيكشن الأخبار --- */
 .news-card {
@@ -368,26 +356,91 @@ a {
     max-height: 100%;
     object-fit: contain; /* السطر ده هو اللي بيمنع قص الصورة نهائياً */
 }
-/* تثبيت اللوجو والاسم ومنع اختفائهم */
-.navbar-brand {
-    display: flex !important;
-    align-items: center !important;
-    z-index: 2001 !important; /* أعلى من القائمة المنسدلة نفسها */
-    position: relative;
+/* --- تعديلات شاملة للموبايل والتابلت --- */
+@media (max-width: 991px) {
+    /* 1. تثبيت النافبار ومنع اختفاء اللوجو */
+    .navbar {
+        position: fixed !important;
+        background: #080808 !important;
+        padding: 8px 0 !important;
+    }
+    
+    .navbar-brand {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .navbar-logo {
+        height: 35px !important; /* حجم مناسب للموبايل */
+        width: auto;
+    }
+
+    /* 2. تظبيط الهيرو (القسم الأول) */
+    .hero {
+        padding-top: 100px !important; /* مسافة عشان النافبار Fixed */
+        text-align: center;
+    }
+
+    .hero-name {
+        font-size: 2.2rem !important; /* تصغير الخط عشان ميكسرش السطر */
+        line-height: 1.3;
+    }
+
+    /* 3. جعل الصفوف عمودية */
+    .row {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .content-column, .img-column {
+        width: 100% !important;
+        padding: 15px !important;
+    }
+
+    /* 4. ترتيب العناصر (الصورة فوق أو تحت حسب الرغبة) */
+    .d-flex.flex-row {
+        flex-direction: column !important;
+    }
+
+    /* 5. الأزرار */
+    .hero-btns, .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-gold-fill, .btn-outline-gold, .btn {
+        width: 100% !important;
+        margin: 5px 0 !important;
+    }
 }
 
-.navbar-logo {
-    height: 45px;
-    width: auto;
-    object-fit: contain;
-    display: block !important; /* تأكيد الظهور */
-}
-@media (max-width: 991px) {
-    .navbar-brand {
-        margin-right: 0; /* بيمنع اللوجو يخرج بره الشاشة في الموبايل */
+/* --- تعديلات خاصة للشاشات الصغيرة جداً (أقل من 400px) --- */
+@media (max-width: 400px) {
+    .hero-name {
+        font-size: 1.8rem !important;
+    }
+    
+    .brand-name-adjust {
+        font-size: 0.9rem !important;
     }
     
     .navbar-logo {
-        height: 35px; /* تصغير بسيط ليناسب شاشة الفون */
+        height: 30px !important;
     }
+}
+.navbar-brand {
+    position: relative;
+    z-index: 2001 !important;
+}
+
+.navbar-toggler {
+    z-index: 2001 !important;
+}
+
+/* عشان المنيو لما تفتح متهنجش السكرول */
+.navbar-collapse.show {
+    max-height: 80vh;
+    overflow-y: auto;
 }
