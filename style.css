@@ -46,18 +46,8 @@ body {
     flex-wrap: nowrap !important; /* بيمنع العناصر إنها تهرب تحت بعضها */
     align-items: center;
 }
-@media (max-width: 991px) {
-    .navbar-brand {
-        display: flex !important;
-        flex-shrink: 0 !important; /* بيمنع اللوجو والاسم إنهم ينضغطوا أو يختفوا */
-        align-items: center;
-    }
-    
-    .brand-name-adjust {
-        white-space: nowrap !important; /* بيمنع الكلمة تنقسم سطرين */
-        overflow: visible !important;
-    }
-}
+
+
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -345,222 +335,79 @@ body {
    ============================================ */
 
 /* شاشات كبيرة (ديسكتوب) */
-@media (min-width: 1200px) {
-    .hero-name {
-        font-size: 5rem;
-    }
-    
-    .container {
-        max-width: 1140px;
-    }
-}
+
 
 /* أجهزة التابلت (768px - 991px) */
+/* --- التعديل السحري للموبايل والتابلت --- */
 @media (max-width: 991px) {
-    /* النافبار */
-    .navbar {
-        padding: 8px 0;
+    /* 1. منع السكرول العرضي نهائياً */
+    html, body {
+        overflow-x: hidden;
+        position: relative;
     }
-    
-    .navbar-brand {
-        flex: 1;
-    }
-    
-    .navbar-logo { 
-        height: 38px; 
-    }
-    
-    .brand-name-adjust { 
-        font-size: 1.2rem; 
-    }
-    
-    /* الهيرو */
-    .hero { 
+
+    /* 2. تظبيط الهيرو (العنوان والصورة) */
+    .hero {
+        padding: 100px 0 40px 0 !important;
         min-height: auto;
-        padding: 100px 0 50px 0;
     }
-    
-    .hero-name { 
-        font-size: 2.8rem !important; 
+    .hero-name {
+        font-size: clamp(1.8rem, 8vw, 2.8rem) !important; /* مقاس مرن بيصغر ويكبر لوحده */
         text-align: center;
+        margin-bottom: 15px;
     }
-    
-    .hero-main-frame { 
-        margin: 0 15px; 
-        padding: 20px;
-    }
-    
-    .content-column { 
-        order: 2; 
-        padding: 40px 20px !important; 
-        text-align: center;
-    }
-    
-    .img-column { 
-        order: 1; 
-        margin-bottom: 30px;
-    }
-    
-    .btn-gold-fill, 
-    .btn-outline-gold { 
-        width: 100% !important; 
-        margin-bottom: 15px; 
-        margin-right: 0 !important; 
-    }
-    
-    /* عن النائب */
-    .about-img-frame {
-        max-width: 300px;
-        margin: 0 auto 30px;
-    }
-    
-    /* الأخبار */
-    .news-section h2 {
-        font-size: 1.5rem;
-    }
-}
-
-/* أجهزة الموبايل الكبيرة (576px - 767px) */
-@media (max-width: 767px) {
-    /* النافبار */
-    .navbar-logo { 
-        height: 35px; 
-    }
-    
-    .brand-name-adjust { 
-        font-size: 1.1rem; 
-    }
-    
-    /* الهيرو */
-    .hero-name { 
-        font-size: 2.4rem !important; 
-    }
-    
-    .hero-main-frame { 
-        border-radius: 20px;
-        padding: 25px 15px;
-    }
-    
-    .official-tag {
-        padding: 5px 18px;
-        font-size: 0.85rem;
-    }
-}
-
-/* أجهزة الموبايل الصغيرة (375px - 575px) */
-@media (max-width: 575px) {
-    /* النافبار */
-    .navbar-logo { 
-        height: 32px; 
-    }
-    
-    .brand-name-adjust { 
-        font-size: 1rem; 
-    }
-    
-    .navbar-toggler {
-        padding: 5px 8px;
-        font-size: 0.8rem;
-    }
-    
-    /* الهيرو */
-    .hero { 
-        padding: 90px 0 40px 0;
-    }
-    
-    .hero-name { 
-        font-size: 2rem !important; 
-    }
-    
-    .hero-main-frame { 
+    .hero-main-frame {
         margin: 0 10px;
-        padding: 20px 12px;
-        border-radius: 18px;
-    }
-    
-    .official-tag {
-        padding: 4px 15px;
-        font-size: 0.8rem;
-    }
-    
-    /* الأزرار */
-    .btn-gold-fill,
-    .btn-outline-gold,
-    .btn-gold-outline-sm {
-        padding: 12px 25px;
-        font-size: 0.9rem;
-    }
-    
-    /* الكروت */
-    .service-card { 
-        padding: 25px 15px !important; 
+        padding: 20px 10px !important;
         border-radius: 15px;
     }
-    
-    /* الأخبار */
+    .content-column {
+        text-align: center !important;
+        padding: 20px !important;
+    }
+    .img-column {
+        margin-bottom: 20px;
+    }
+    .img-column img {
+        max-width: 80% !important; /* عشان الصورة متفرقعش في الشاشة */
+        margin: 0 auto;
+    }
+
+    /* 3. الأزرار - خليهم تحت بعض بشكل شيك */
+    .btn-gold-fill, .btn-outline-gold {
+        width: 100% !important;
+        margin: 0 0 12px 0 !important; /* مسافة تحت كل زرار */
+        display: block;
+    }
+
+    /* 4. النافبار - حل مشكلة اللوجو */
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        max-width: 70%;
+    }
+    .navbar-logo {
+        height: 35px !important;
+        width: auto;
+    }
+    .brand-name-adjust {
+        font-size: 1rem !important;
+        white-space: nowrap;
+    }
+
+    /* 5. كروت الأخبار والخدمات */
     .news-img-box {
-        height: 180px;
+        height: 200px !important; /* تصغير الارتفاع للموبايل */
+    }
+    .service-card {
+        margin-bottom: 20px;
+        padding: 20px !important;
     }
 }
 
-/* أجهزة الموبايل الصغيرة جداً (أقل من 375px) */
-@media (max-width: 374px) {
-    /* النافبار */
-    .navbar-logo { 
-        height: 30px; 
-    }
-    
-    .brand-name-adjust { 
-        font-size: 0.95rem; 
-    }
-    
-    /* الهيرو */
-    .hero-name { 
-        font-size: 1.8rem !important; 
-    }
-    
-    .official-tag {
-        padding: 3px 12px;
-        font-size: 0.75rem;
-    }
-    
-    /* الأزرار */
-    .btn-gold-fill,
-    .btn-outline-gold,
-    .btn-gold-outline-sm {
-        padding: 10px 20px;
-        font-size: 0.85rem;
-    }
-}
-
-/* تحسينات للشاشات العريضة */
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1320px;
-    }
-    
-    .hero-name {
-        font-size: 5.5rem;
-    }
-}
-
-/* حل مشكلة التداخل مع النافبار الثابت */
-body {
-    padding-top: 70px;
-}
-
-@media (max-width: 767px) {
-    body {
-        padding-top: 65px;
-    }
-}
-
-@media (max-width: 575px) {
-    body {
-        padding-top: 60px;
-    }
-}
-
+/* حل مشكلة التداخل مع النافبار */
+body { padding-top: 70px; }
+@media (max-width: 768px) { body { padding-top: 60px; } }
 /* إصلاح مشكلة الريلودر */
 .loader-hidden {
     opacity: 0 !important;

@@ -1,29 +1,27 @@
-// 1. إجبار المتصفح يفتح من بداية الصفحة ويمسح الهاش
-if (window.location.hash) {
-    history.replaceState(null, null, window.location.pathname);
-}
-
-window.scrollTo(0, 0);
-
-// 2. تشغيل الأنميشن واللودر
+// 1. إعدادات البداية والأنميشن
 AOS.init({ duration: 1000, once: true });
 
+// 2. إدارة اللودر وجلب البيانات عند التحميل
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     if (preloader) {
         setTimeout(() => {
             preloader.style.opacity = '0';
             preloader.style.visibility = 'hidden';
+            // إخفاء نهائي بعد الأنميشن
+            setTimeout(() => { preloader.style.display = 'none'; }, 500);
         }, 800);
     }
+    
     fetchNews(); 
     
-    setTimeout(() => {
+    // التأكد إن الصفحة تبدأ من فوق
+    if (!window.location.hash) {
         window.scrollTo(0, 0);
-    }, 100);
+    }
 });
 
-// 3. دالة جلب الأخبار (تم تحسين الرندر للموبايل)
+// 3. دالة جلب الأخبار (نفس التنسيق بتاعك بالظبط)
 async function fetchNews() {
     const container = document.getElementById('newsContainer');
     if (!container) return;
@@ -67,13 +65,10 @@ async function fetchNews() {
     }
 }
 
-// 4. دالة فتح المودال
+// 4. دالة فتح المودال (التفاصيل)
 function showFullNews(title, text, imgSrc) {
     const modalEl = document.getElementById('newsDetailModal'); 
-    if (!modalEl) {
-        alert("عذراً، لم يتم العثور على نافذة عرض التفاصيل في الصفحة.");
-        return;
-    }
+    if (!modalEl) return;
 
     document.getElementById('modalTitle').innerText = title;
     document.getElementById('modalBody').innerHTML = text; 
@@ -91,15 +86,23 @@ function showFullNews(title, text, imgSrc) {
     }
 }
 
-// 5. السكرول الناعم (تم التعديل ليناسب الموبايل والنافبار الـ Fixed)
+// 5. السكرول الناعم وقفل القائمة في الموبايل
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href');
         if(targetId === '#') return;
+        
         const target = document.querySelector(targetId);
         if (target) {
-            // حساب ارتفاع النافبار الفعلي عشان السكرول م يغطيش العنوان
+            e.preventDefault();
+            
+            // قفل القائمة في الموبايل فوراً
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
+                bsCollapse.hide();
+            }
+
             const navHeight = document.querySelector('.navbar').offsetHeight;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
 
@@ -107,28 +110,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 top: targetPosition, 
                 behavior: 'smooth'
             });
-
-            // قفل قائمة الموبايل أوتوماتيكياً بعد الضغط على أي رابط
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-                const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                bsCollapse.hide();
-            }
         }
     });
 });
-// Preloader
-window.addEventListener('load', function() {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        preloader.classList.add('loader-hidden');
-        setTimeout(() => {
-            preloader.style.display = 'none';
-        }, 500);
-    }
-});
 
-// Navbar scroll effect
+// 6. تأثير النافبار عند السكرول
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {
@@ -139,46 +125,3 @@ window.addEventListener('scroll', function() {
         navbar.style.backgroundColor = 'rgba(8, 8, 8, 0.98)';
     }
 });
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
-
-// Mobile menu close on click
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function() {
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        if (navbarCollapse.classList.contains('show')) {
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            navbarToggler.click();
-        }
-    });
-});
-
-// Card hover effect for touch devices
-if ('ontouchstart' in window) {
-    document.querySelectorAll('.service-card, .news-card').forEach(card => {
-        card.addEventListener('touchstart', function() {
-            this.classList.add('gold-border-hover');
-        });
-        
-        card.addEventListener('touchend', function() {
-            setTimeout(() => {
-                this.classList.remove('gold-border-hover');
-            }, 300);
-        });
-    });
-}
