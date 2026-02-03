@@ -368,3 +368,26 @@ a {
     max-height: 100%;
     object-fit: contain; /* السطر ده هو اللي بيمنع قص الصورة نهائياً */
 }
+/* تثبيت اللوجو والاسم ومنع اختفائهم */
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    z-index: 2001 !important; /* أعلى من القائمة المنسدلة نفسها */
+    position: relative;
+}
+
+.navbar-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    display: block !important; /* تأكيد الظهور */
+}
+@media (max-width: 991px) {
+    .navbar-brand {
+        margin-right: 0; /* بيمنع اللوجو يخرج بره الشاشة في الموبايل */
+    }
+    
+    .navbar-logo {
+        height: 35px; /* تصغير بسيط ليناسب شاشة الفون */
+    }
+}
