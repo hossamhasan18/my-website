@@ -413,3 +413,26 @@ a {
     visibility: hidden !important;
     pointer-events: none !important;
 }
+@media (max-width: 991px) {
+    /* تحديد اتجاه ثابت للحاوية داخل النافبار */
+    .navbar > .container {
+        display: flex !important;
+        /* row-reverse هيخلي اللوجو يمين والزرار شمال في الـ RTL */
+        /* لو لقيتهم لسه معكوسين، جرب تغيرها لـ row فقط */
+        flex-direction: row-reverse !important; 
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    /* ضمان عدم تداخل اللوجو مع الزرار */
+    .navbar-brand {
+        order: 1 !important; /* ترتيب اللوجو */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .navbar-toggler {
+        order: 2 !important; /* ترتيب زرار القائمة */
+        margin: 0 !important;
+    }
+}
