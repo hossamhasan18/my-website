@@ -34,12 +34,23 @@ body {
 .loader-hidden { opacity: 0; visibility: hidden; }
 
 /* --- الناف بار (Navbar) --- */
+/* --- الناف بار المطور لمنع التعليق --- */
 .navbar {
-    background: rgba(8, 8, 8, 0.98) !important;
+    background: #080808 !important; /* لون صريح بدون شفافية لمنع تهنيج الرندر */
     border-bottom: 1px solid var(--gold-low);
     padding: 10px 0;
     transition: 0.4s;
-    z-index: 1000;
+    z-index: 2000 !important; /* رفع الترتيب لضمان ظهوره فوق كل شيء */
+    position: fixed !important; /* تثبيت مكانه أثناء السكرول */
+    top: 0;
+    width: 100%;
+    backdrop-filter: none !important; /* إلغاء البلور في الموبايل لأنه يسبب ثقل */
+}
+
+/* لضمان خلفية سوداء للقائمة المنسدلة في الموبايل */
+.navbar-collapse {
+    background: #080808 !important;
+    z-index: 2000;
 }
 .navbar-logo { height: 45px; width: auto; margin-left: 10px; }
 .brand-name-adjust {
@@ -128,6 +139,18 @@ body {
 @media (max-width: 576px) {
     .hero-name { font-size: 2.2rem !important; }
     .service-card { padding: 30px 15px !important; }
+}
+@media (max-width: 991px) {
+    /* تأكد من إضافة مسافة علوية للهيرو لأن النافبار أصبح Fixed */
+    .hero { 
+        padding-top: 100px !important; 
+    }
+    
+    /* منع الـ Navbar من التمدد بشكل خاطئ */
+    .navbar-nav {
+        padding-top: 15px;
+        text-align: center;
+    }
 }
 /* --- سيكشن الأخبار --- */
 .news-card {
