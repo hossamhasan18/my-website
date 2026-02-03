@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم مقترح | النائب عبده مأمون</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="suggestion.css">
+</head>
+<body class="bg-black text-white">
+
+    <div id="loader-wrapper">
+        <div class="loader-content text-center">
+            <img src="logo.png" alt="شعار النائب" class="loader-logo mb-3">
+            <div class="gold-spinner mx-auto"></div>
+            <p class="brand-ruqaa gold-text mt-3 h4">النائب عبده مأمون</p>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top shadow-lg">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="logo.png" alt="شعار" height="50">
+                <div class="brand-name-adjust brand-ruqaa text-white ms-3">
+                    النائب <span class="gold-text">عَبْدُه مَأْمُون</span>
+                </div>
+            </a>
+            <a href="index.html" class="btn-gold-outline-sm no-underline brand-ruqaa">
+                الرئيسية <i class="fas fa-home ms-2"></i>
+            </a>
+        </div>
+    </nav>
+
+    <main class="py-5 mt-5">
+        <div class="container py-5">
+            <div class="max-w-4xl mx-auto mt-4">
+                <div class="main-frame-luxury shadow-lg p-4 p-md-5">
+                    <div class="text-center mb-5">
+                        <i class="fas fa-lightbulb gold-text fa-3x mb-3"></i>
+                        <h2 class="brand-ruqaa gold-text">تقديم مقترح لتطوير الدائرة</h2>
+                        <p class="text-secondary">أفكارك تهمنا.. شاركنا بمقترحك للنهوض ببلدنا</p>
+                    </div>
+                    
+                    <form id="suggestionForm" action="save_suggestion.php" method="POST">
+                        
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label class="gold-text brand-ruqaa h5 mb-3">الاسم بالكامل *</label>
+                                <input type="text" name="full_name" class="form-control-custom w-100" placeholder="أدخل اسمك الثلاثي" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="gold-text brand-ruqaa h5 mb-3">رقم الموبايل *</label>
+                                <input type="tel" name="phone" maxlength="11" class="form-control-custom w-100 text-start" dir="ltr" placeholder="01xxxxxxxxx" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label class="gold-text brand-ruqaa h5 mb-3">رقم البطاقة الشخصية *</label>
+                                <input type="text" name="national_id" maxlength="14" class="form-control-custom w-100 text-start" dir="ltr" placeholder="الـ 14 رقم بالكامل" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="gold-text brand-ruqaa h5 mb-3">القرية / المدينة / العزبة *</label>
+                                <input type="text" name="village" class="form-control-custom w-100" placeholder="اسم بلدتك بالتفصيل" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="gold-text brand-ruqaa h5 mb-3">مجال المقترح *</label>
+                            <select name="category" class="form-control-custom w-100">
+                                <option value="" disabled selected>اختر المجال...</option>
+                                <option value="infrastructure">رصف طرق / كهرباء / مياه</option>
+                                <option value="health">الصحة والوحدات الصحية</option>
+                                <option value="education">التعليم وبناء المدارس</option>
+                                <option value="sports">الشباب والرياضة والملاعب</option>
+                                <option value="social">خدمات اجتماعية عامة</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="gold-text brand-ruqaa h5 mb-3">اشرح مقترحك بالتفصيل *</label>
+                            <textarea name="details" class="form-control-custom w-100" rows="5" placeholder="اكتب فكرتك والنتائج المتوقعة منها..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-gold-fill w-100 py-3 fw-bold h4 brand-ruqaa no-underline">
+                            إرسال المقترح للنائب <i class="fas fa-paper-plane ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+     <footer class="footer py-5 border-top border-gold-low text-center">
+        <div class="container">
+            <img src="logo.png" alt="شعار" width="60" class="mb-3">
+            <h4 class="gold-text brand-ruqaa mb-4">النائب عبده مأمون</h4>
+            <div class="social-links mb-4">
+                <a href="https://web.facebook.com/AbdoMamoun01121888777/about" class="text-white mx-2 fs-4"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-white mx-2 fs-4"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white mx-2 fs-4"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="mb-0 text-secondary small">جميع الحقوق محفوظة © 2026 | تطوير المهندس <a href="https://www.facebook.com/share/1CP56wfhzW/?mibextid=wwXIfr" target="_blank" class="gold-text text-decoration-none fw-bold">حسام حسن</a></p>
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="suggestion.js"></script>
+</body>
+</html>

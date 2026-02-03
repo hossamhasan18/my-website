@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متابعة الشكوى | النائب عبده مأمون</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="follow.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-black text-white">
+
+    <nav class="navbar navbar-expand-lg fixed-top shadow-lg">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="logo.png" alt="شعار" height="45">
+                <div class="brand-name-adjust brand-ruqaa text-white ms-3">
+                    النائب <span class="gold-text">عَبْدُه مَأْمُون</span>
+                </div>
+            </a>
+            <a href="index.html" class="btn-gold-outline-sm no-underline brand-ruqaa">
+                الرئيسية <i class="fas fa-home ms-2"></i>
+            </a>
+        </div>
+    </nav>
+
+    <main class="py-5 mt-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    
+                    <div class="text-center mb-5">
+                        <i class="fas fa-search-location gold-text fa-3x mb-3"></i>
+                        <h1 class="brand-ruqaa gold-text display-5">متابعة حالة الشكوى</h1>
+                        <p class="text-secondary small">أدخل البيانات التالية لمعرفة ما تم في شكواك</p>
+                    </div>
+
+                    <div class="hero-main-frame p-4 p-md-5 shadow-lg">
+                        <form id="trackForm">
+                            <div class="mb-4 text-start">
+                                <label class="gold-text brand-ruqaa h5 mb-3 d-block">رقم البطاقة الشخصية (14 رقم) *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-gold-low text-gold"><i class="fas fa-id-card"></i></span>
+                                    <input type="text" id="national_id_input" maxlength="14" class="form-control-custom w-auto flex-grow-1" placeholder="أدخل الرقم القومي كاملاً" required dir="ltr">
+                                </div>
+                            </div>
+
+                            <div class="mb-5 text-start">
+                                <label class="gold-text brand-ruqaa h5 mb-3 d-block">رقم الشكوى *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-gold-low text-gold"><i class="fas fa-hashtag"></i></span>
+                                    <input type="text" id="order_no_input" class="form-control-custom w-auto flex-grow-1" placeholder="مثال: AM-2026-1234" required dir="ltr">
+                                </div>
+                            </div>
+
+                            <button type="submit" id="searchBtn" class="btn-gold-fill w-100 py-3 fw-bold h5 brand-ruqaa hover-gold-effect border-0">
+                                استعلام عن الحالة <i class="fas fa-arrow-left ms-2"></i>
+                            </button>
+                        </form>
+
+                        <div id="resultArea" class="mt-5 p-4 border-right-gold d-none" style="background: rgba(212, 175, 55, 0.05); border-right: 4px solid #d4af37; border-radius: 8px;">
+                            <h5 class="gold-text brand-ruqaa mb-3">نتيجة الاستعلام:</h5>
+                            <p class="mb-0 text-white h6" id="statusText" style="line-height: 1.8;"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer py-5 border-top border-gold-low text-center">
+        <div class="container">
+            <img src="logo.png" alt="شعار" width="60" class="mb-3">
+            <h4 class="gold-text brand-ruqaa mb-4">النائب عبده مأمون</h4>
+            <div class="social-links mb-4">
+                <a href="https://web.facebook.com/AbdoMamoun01121888777/about" class="text-white mx-2 fs-4"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-white mx-2 fs-4"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white mx-2 fs-4"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="mb-0 text-secondary small">جميع الحقوق محفوظة © 2026 | تطوير المهندس <a href="https://www.facebook.com/share/1CP56wfhzW/?mibextid=wwXIfr" target="_blank" class="gold-text text-decoration-none fw-bold">حسام حسن</a></p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="follow.js"></script>
+</body>
+</html>

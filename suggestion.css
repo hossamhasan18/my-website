@@ -1,0 +1,90 @@
+/* الألوان والخطوط */
+:root {
+    --black: #080808;
+    --dark-grey: #121212;
+    --gold: #D4AF37;
+    --gold-low: rgba(212, 175, 55, 0.1);
+}
+
+body { font-family: 'Cairo', sans-serif; background-color: var(--black); }
+.brand-ruqaa { font-family: 'Aref Ruqaa', serif; }
+.gold-text { color: var(--gold); }
+.no-underline { text-decoration: none; }
+
+/* شاشة التحميل */
+#loader-wrapper {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center;
+}
+.gold-spinner {
+    width: 50px; height: 50px; border: 3px solid var(--gold-low);
+    border-top: 3px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* الناف بار */
+.navbar { background: rgba(8, 8, 8, 0.98); border-bottom: 1px solid var(--gold-low); padding: 10px 0; }
+.btn-gold-outline-sm { border: 1px solid var(--gold); color: var(--gold); padding: 6px 20px; border-radius: 8px; transition: 0.3s; }
+.btn-gold-outline-sm:hover { background: var(--gold); color: black; }
+
+/* الكارت الفخم */
+.main-frame-luxury {
+    background: var(--dark-grey); border: 1px solid var(--gold-low); border-radius: 25px; position: relative;
+}
+.main-frame-luxury::before {
+    content: ""; position: absolute; top: 0; right: 0; width: 60px; height: 60px;
+    border-top: 3px solid var(--gold); border-right: 3px solid var(--gold); border-radius: 0 25px 0 0;
+}
+
+/* الحقول */
+.form-control-custom {
+    background: rgba(255, 255, 255, 0.04) !important; border: 1px solid var(--gold-low) !important;
+    border-radius: 12px; padding: 15px; color: white !important; transition: 0.3s;
+}
+.form-control-custom:focus { border-color: var(--gold) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.1) !important; outline: none; }
+
+/* --- تعديل القائمة (Select) لتناسب الثيم --- */
+select.form-control-custom {
+    cursor: pointer;
+    appearance: none; /* إخفاء سهم المتصفح */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* إضافة سهم ذهبي احترافي */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23D4AF37' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: left 1rem center !important;
+    background-size: 16px 12px !important;
+}
+
+select.form-control-custom option {
+    background-color: var(--dark-grey) !important;
+    color: white !important;
+}
+/* ------------------------------------------ */
+
+/* الزر */
+.btn-gold-fill { background: var(--gold); color: black !important; border-radius: 12px; border: none; transition: 0.3s; cursor: pointer; }
+.btn-gold-fill:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); }
+
+.max-w-4xl { max-width: 850px; margin: auto; }
+/* تنسيق شعار التحميل */
+.loader-logo {
+    width: 80px; /* تحكم في حجم الشعار من هنا */
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); /* ظل ذهبي خفيف */
+    animation: pulseLogo 2s infinite ease-in-out;
+}
+
+/* حركة نبض الشعار */
+@keyframes pulseLogo {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+/* تعديل بسيط للكونتينر عشان يسنتر كل حاجة */
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
