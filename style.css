@@ -17,7 +17,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- شاشة التحميل (Preloader) --- */
+/* --- شاشة التحميل (Preloader) زي ما هي --- */
 #preloader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: var(--black); display: flex; justify-content: center;
@@ -33,102 +33,232 @@ body {
 @keyframes spin { 100% { transform: rotate(360deg); } }
 .loader-hidden { opacity: 0; visibility: hidden; }
 
-/* --- الناف بار (Navbar) --- */
+/* --- الناف بار (Navbar) معدل --- */
 .navbar {
     background: rgba(8, 8, 8, 0.98) !important;
     border-bottom: 1px solid var(--gold-low);
     padding: 10px 0;
     transition: 0.4s;
     z-index: 1000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
 }
-.navbar-logo { height: 45px; width: auto; margin-left: 10px; }
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* الشعار والاسم على اليمين */
+.navbar-brand {
+    display: flex !important;
+    align-items: center;
+    margin-left: 0 !important;
+    order: 1;
+}
+
+.navbar-logo { 
+    height: 45px; 
+    width: auto; 
+    margin-left: 10px; 
+}
+
 .brand-name-adjust {
     font-family: 'Aref Ruqaa', serif !important;
     font-size: 1.5rem;
     color: var(--white) !important;
+    margin-right: 10px;
 }
-.gold-text { color: var(--gold) !important; }
-.nav-link { color: var(--white) !important; font-weight: 600; transition: 0.3s; }
-.nav-link:hover { color: var(--gold) !important; }
 
-/* --- تصغير الثلاث شرط (Navbar Toggler) --- */
+.gold-text { color: var(--gold) !important; }
+
+/* زر القائمة على اليسار */
 .navbar-toggler {
-    padding: 4px 8px; /* تصغير مساحة الضغط */
-    font-size: 0.85rem; /* تصغير حجم الثلاث شرط */
-    border: 1px solid var(--gold-low) !important; /* برواز خفيف جداً */
+    order: 2;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border: 1px solid var(--gold-low) !important;
     outline: none !important;
     box-shadow: none !important;
+    margin-left: 15px;
+    margin-right: 0 !important;
 }
+
 .navbar-toggler i {
-    color: var(--gold); /* لون ذهبي للشرط */
+    color: var(--gold);
+}
+
+.nav-link { 
+    color: var(--white) !important; 
+    font-weight: 600; 
+    transition: 0.3s; 
+    padding: 10px 15px !important;
+    text-align: right;
+}
+
+.nav-link:hover { color: var(--gold) !important; }
+
+/* القائمة المنسدلة */
+.navbar-collapse {
+    order: 3;
+    flex-basis: 100%;
+    flex-grow: 0;
+}
+
+.navbar-nav {
+    width: 100%;
+    justify-content: flex-start;
 }
 
 /* --- الهيرو (Hero Section) --- */
 .hero {
     min-height: 100vh;
-    display: flex; align-items: center;
+    display: flex; 
+    align-items: center;
     padding: 120px 0 60px 0;
 }
 .hero-main-frame {
-    background: rgba(18, 18, 18, 0.5); border: 1px solid var(--gold-low);
-    border-radius: 25px; overflow: hidden; transition: 0.5s; backdrop-filter: blur(10px);
+    background: rgba(18, 18, 18, 0.5); 
+    border: 1px solid var(--gold-low);
+    border-radius: 25px; 
+    overflow: hidden; 
+    transition: 0.5s; 
+    backdrop-filter: blur(10px);
+    margin: 0 auto;
+    max-width: 1200px;
 }
 .hero-main-frame:hover {
     border-color: var(--gold);
     box-shadow: 0 0 40px rgba(212, 175, 55, 0.15);
 }
-.hero-name { font-family: 'Aref Ruqaa', serif !important; font-size: 5rem; margin-bottom: 20px; }
+.hero-name { 
+    font-family: 'Aref Ruqaa', serif !important; 
+    font-size: 5rem; 
+    margin-bottom: 20px; 
+}
 .official-tag {
-    border: 1px solid var(--gold); padding: 5px 20px; border-radius: 50px;
-    font-size: 0.9rem; background: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--gold); 
+    padding: 5px 20px; 
+    border-radius: 50px;
+    font-size: 0.9rem; 
+    background: rgba(212, 175, 55, 0.05);
 }
 
 /* --- الأزرار (Buttons) --- */
 .btn-gold-fill {
-    background: var(--gold); color: black !important; font-weight: bold;
-    padding: 14px 35px; border-radius: 5px; border: 1px solid var(--gold); transition: 0.4s;
+    background: var(--gold); 
+    color: black !important; 
+    font-weight: bold;
+    padding: 14px 35px; 
+    border-radius: 5px; 
+    border: 1px solid var(--gold); 
+    transition: 0.4s;
+    display: inline-block;
 }
 .btn-outline-gold {
-    border: 1px solid var(--gold); color: var(--gold);
-    padding: 14px 35px; border-radius: 5px; transition: 0.4s;
+    border: 1px solid var(--gold); 
+    color: var(--gold);
+    padding: 14px 35px; 
+    border-radius: 5px; 
+    transition: 0.4s;
+    display: inline-block;
 }
 .btn-gold-outline-sm {
-    border: 1px solid var(--gold); color: var(--white) !important;
-    padding: 12px 35px; border-radius: 5px; font-weight: bold;
-    transition: 0.4s; text-decoration: none; display: inline-block;
+    border: 1px solid var(--gold); 
+    color: var(--white) !important;
+    padding: 12px 35px; 
+    border-radius: 5px; 
+    font-weight: bold;
+    transition: 0.4s; 
+    text-decoration: none; 
+    display: inline-block;
 }
 .hover-gold-effect:hover {
-    background: var(--gold) !important; color: black !important;
-    box-shadow: 0 0 20px var(--gold); transform: translateY(-3px);
+    background: var(--gold) !important; 
+    color: black !important;
+    box-shadow: 0 0 20px var(--gold); 
+    transform: translateY(-3px);
 }
 
 /* --- كروت الخدمات (Cards) --- */
 .service-card {
-    background: var(--dark-gray); border: 1px solid #222;
-    border-radius: 20px; transition: 0.4s;
+    background: var(--dark-gray); 
+    border: 1px solid #222;
+    border-radius: 20px; 
+    transition: 0.4s;
+    padding: 30px;
+    height: 100%;
 }
-.gold-border-hover:hover { border-color: var(--gold); transform: translateY(-10px); }
+.gold-border-hover:hover { 
+    border-color: var(--gold); 
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
 /* --- الصور --- */
-.deputy-img-final { width: 100%; height: auto; filter: drop-shadow(-10px 10px 25px rgba(0,0,0,0.6)); }
-
-/* --- التوافق مع الشاشات (Responsive) --- */
-@media (max-width: 991px) {
-    .hero-name { font-size: 2.8rem !important; }
-    .hero-main-frame { margin: 0 15px; }
-    .content-column { order: 2; padding: 40px 20px !important; }
-    .img-column { order: 1; }
-    .btn-gold-fill, .btn-outline-gold { width: 100%; margin-bottom: 15px; margin-right: 0 !important; }
-    
-    /* تصغير النافبار في الموبايل */
-    .navbar-logo { height: 35px; }
-    .brand-name-adjust { font-size: 1.1rem; }
+.deputy-img-final { 
+    width: 100%; 
+    height: auto; 
+    filter: drop-shadow(-10px 10px 25px rgba(0,0,0,0.6)); 
+    border-radius: 15px;
 }
 
-@media (max-width: 576px) {
-    .hero-name { font-size: 2.2rem !important; }
-    .service-card { padding: 30px 15px !important; }
+/* --- سيكشن عن النائب --- */
+.about-deputy {
+    background: linear-gradient(to bottom, #080808, #121212);
+    padding: 80px 0;
 }
+
+.about-img-frame {
+    position: relative;
+    padding: 15px;
+    border: 1px solid var(--gold-low);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.about-img-frame::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 50px;
+    height: 50px;
+    border-top: 3px solid var(--gold);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px 0 0 0;
+}
+
+.about-img {
+    border-radius: 15px;
+    filter: grayscale(30%);
+    transition: 0.5s;
+    width: 100%;
+    height: auto;
+}
+
+.about-img:hover {
+    filter: grayscale(0%);
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    height: 100%;
+    padding: 25px;
+}
+
+.border-right-gold {
+    border-right: 4px solid var(--gold);
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 0 10px 10px 0;
+}
+
 /* --- سيكشن الأخبار --- */
 .news-card {
     background: var(--dark-gray);
@@ -136,6 +266,7 @@ body {
     border-radius: 20px;
     overflow: hidden;
     transition: 0.4s;
+    height: 100%;
 }
 
 .news-img-box {
@@ -155,15 +286,20 @@ body {
     transform: scale(1.1);
 }
 
+.news-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
 .news-date {
     position: absolute;
     bottom: 15px;
     right: 15px;
     background: var(--gold);
     color: black;
-    padding: 4px 12px;
+    padding: 5px 15px;
     border-radius: 5px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: bold;
 }
 
@@ -173,6 +309,9 @@ body {
     font-size: 0.85rem;
     font-weight: bold;
     transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .read-more:hover {
@@ -188,128 +327,242 @@ body {
     transform: translateX(-5px);
 }
 
-/* تعديل المسافات في الموبايل للأخبار */
-@media (max-width: 768px) {
+/* ============================================
+   === Media Queries لكل الشاشات ===
+   ============================================ */
+
+/* شاشات كبيرة (ديسكتوب) */
+@media (min-width: 1200px) {
+    .hero-name {
+        font-size: 5rem;
+    }
+    
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* أجهزة التابلت (768px - 991px) */
+@media (max-width: 991px) {
+    /* النافبار */
+    .navbar {
+        padding: 8px 0;
+    }
+    
+    .navbar-brand {
+        flex: 1;
+    }
+    
+    .navbar-logo { 
+        height: 38px; 
+    }
+    
+    .brand-name-adjust { 
+        font-size: 1.2rem; 
+    }
+    
+    /* الهيرو */
+    .hero { 
+        min-height: auto;
+        padding: 100px 0 50px 0;
+    }
+    
+    .hero-name { 
+        font-size: 2.8rem !important; 
+        text-align: center;
+    }
+    
+    .hero-main-frame { 
+        margin: 0 15px; 
+        padding: 20px;
+    }
+    
+    .content-column { 
+        order: 2; 
+        padding: 40px 20px !important; 
+        text-align: center;
+    }
+    
+    .img-column { 
+        order: 1; 
+        margin-bottom: 30px;
+    }
+    
+    .btn-gold-fill, 
+    .btn-outline-gold { 
+        width: 100% !important; 
+        margin-bottom: 15px; 
+        margin-right: 0 !important; 
+    }
+    
+    /* عن النائب */
+    .about-img-frame {
+        max-width: 300px;
+        margin: 0 auto 30px;
+    }
+    
+    /* الأخبار */
     .news-section h2 {
         font-size: 1.5rem;
     }
 }
-/* --- سيكشن عن النائب --- */
-.about-deputy {
-    background: linear-gradient(to bottom, #080808, #121212);
-}
 
-.about-img-frame {
-    position: relative;
-    padding: 15px;
-    border: 1px solid var(--gold-low);
-    border-radius: 20px;
-}
-
-.about-img-frame::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    width: 50px;
-    height: 50px;
-    border-top: 3px solid var(--gold);
-    border-left: 3px solid var(--gold);
-}
-
-.about-img {
-    border-radius: 15px;
-    filter: grayscale(30%);
-    transition: 0.5s;
-}
-
-.about-img:hover {
-    filter: grayscale(0%);
-}
-
-.info-card {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    height: 100%;
-}
-
-.border-right-gold {
-    border-right: 4px solid var(--gold);
-    background: rgba(212, 175, 55, 0.05);
-    border-radius: 0 10px 10px 0;
-}
-
-/* تعديل للموبايل */
-@media (max-width: 991px) {
-    .about-img-frame {
-        max-width: 300px;
-        margin: 0 auto;
+/* أجهزة الموبايل الكبيرة (576px - 767px) */
+@media (max-width: 767px) {
+    /* النافبار */
+    .navbar-logo { 
+        height: 35px; 
     }
-}
     
-
-
-/* تنسيق اللينكات (وسم A) والنافبار بخط الرقعة */
-
-a {
-    font-weight: 700 !important;
-    text-decoration: none !important;
-    font-size: 12px;
-    color: aliceblue;
-}
-/* --- التعديل السحري لجميع الشاشات (ضيفه في آخر الملف) --- */
-
-@media (max-width: 991px) {
-    /* تظبيط الهيرو واسم النائب عشان ميسيحش */
+    .brand-name-adjust { 
+        font-size: 1.1rem; 
+    }
+    
+    /* الهيرو */
     .hero-name { 
-        font-size: 2.5rem !important; 
-        text-align: center;
+        font-size: 2.4rem !important; 
     }
     
-    /* ترتيب الصورة والكلام في الموبايل */
-    .hero .row {
-        flex-direction: column !important;
-        text-align: center !important;
+    .hero-main-frame { 
+        border-radius: 20px;
+        padding: 25px 15px;
     }
     
-    /* منع خروج الصور بره الشاشة */
-    .deputy-img-final, .about-img {
-        max-width: 100% !important;
-        height: auto !important;
-        margin-bottom: 20px;
-    }
-
-    /* تظبيط الأزرار عشان ميبقوش لازقين في بعض */
-    .hero-btns .btn {
-        width: 100% !important;
-        margin-right: 0 !important;
-        margin-bottom: 10px !important;
-    }
-
-    /* تظبيط كروت الخدمات والأخبار */
-    .service-card, .news-card {
-        margin-bottom: 20px;
-    }
-
-    /* تصغير النافبار عشان مياخدش نص الشاشة */
-    .brand-name-adjust {
-        font-size: 1.1rem !important;
+    .official-tag {
+        padding: 5px 18px;
+        font-size: 0.85rem;
     }
 }
 
-@media (max-width: 576px) {
+/* أجهزة الموبايل الصغيرة (375px - 575px) */
+@media (max-width: 575px) {
+    /* النافبار */
+    .navbar-logo { 
+        height: 32px; 
+    }
+    
+    .brand-name-adjust { 
+        font-size: 1rem; 
+    }
+    
+    .navbar-toggler {
+        padding: 5px 8px;
+        font-size: 0.8rem;
+    }
+    
+    /* الهيرو */
+    .hero { 
+        padding: 90px 0 40px 0;
+    }
+    
     .hero-name { 
         font-size: 2rem !important; 
     }
     
-    .hero {
-        padding-top: 80px !important;
+    .hero-main-frame { 
+        margin: 0 10px;
+        padding: 20px 12px;
+        border-radius: 18px;
+    }
+    
+    .official-tag {
+        padding: 4px 15px;
+        font-size: 0.8rem;
+    }
+    
+    /* الأزرار */
+    .btn-gold-fill,
+    .btn-outline-gold,
+    .btn-gold-outline-sm {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+    
+    /* الكروت */
+    .service-card { 
+        padding: 25px 15px !important; 
+        border-radius: 15px;
+    }
+    
+    /* الأخبار */
+    .news-img-box {
+        height: 180px;
     }
 }
 
-/* حل مشكلة الريلودر اللي مش بيقفل */
+/* أجهزة الموبايل الصغيرة جداً (أقل من 375px) */
+@media (max-width: 374px) {
+    /* النافبار */
+    .navbar-logo { 
+        height: 30px; 
+    }
+    
+    .brand-name-adjust { 
+        font-size: 0.95rem; 
+    }
+    
+    /* الهيرو */
+    .hero-name { 
+        font-size: 1.8rem !important; 
+    }
+    
+    .official-tag {
+        padding: 3px 12px;
+        font-size: 0.75rem;
+    }
+    
+    /* الأزرار */
+    .btn-gold-fill,
+    .btn-outline-gold,
+    .btn-gold-outline-sm {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+/* تحسينات للشاشات العريضة */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .hero-name {
+        font-size: 5.5rem;
+    }
+}
+
+/* حل مشكلة التداخل مع النافبار الثابت */
+body {
+    padding-top: 70px;
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-top: 65px;
+    }
+}
+
+@media (max-width: 575px) {
+    body {
+        padding-top: 60px;
+    }
+}
+
+/* إصلاح مشكلة الريلودر */
 .loader-hidden {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+}
+
+/* تنسيق اللينكات */
+a {
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    font-size: 12px;
+    color: var(--white);
+}
+
+a:hover {
+    color: var(--gold);
 }
