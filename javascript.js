@@ -1,4 +1,4 @@
-// 1. إجبار المتصفح يفتح من بداية الصفحة فوق خالص ويمسح الهاش (#about)
+// 1. إجبار المتصفح يفتح من بداية الصفحة ويمسح الهاش
 if (window.location.hash) {
     history.replaceState(null, null, window.location.pathname);
 }
@@ -16,15 +16,14 @@ window.addEventListener('load', () => {
             preloader.style.visibility = 'hidden';
         }, 800);
     }
-    fetchNews(); // نداء جلب الأخبار
+    fetchNews(); 
     
-    // ضمان إضافي للصعود للأعلى بعد اختفاء اللودر
     setTimeout(() => {
         window.scrollTo(0, 0);
     }, 100);
 });
 
-// 3. دالة جلب الأخبار من قاعدة البيانات
+// 3. دالة جلب الأخبار (تم تحسين الرندر للموبايل)
 async function fetchNews() {
     const container = document.getElementById('newsContainer');
     if (!container) return;
@@ -68,12 +67,11 @@ async function fetchNews() {
     }
 }
 
-// 4. دالة فتح المودال (تم تحسين الأمان عشان الخطأ اللي بيظهرلك)
+// 4. دالة فتح المودال
 function showFullNews(title, text, imgSrc) {
-    const modalEl = document.getElementById('newsDetailModal'); // اتأكد إن الـ ID ده هو اللي في HTML
+    const modalEl = document.getElementById('newsDetailModal'); 
     if (!modalEl) {
         alert("عذراً، لم يتم العثور على نافذة عرض التفاصيل في الصفحة.");
-        console.error("المودال newsDetailModal غير موجود في الـ HTML");
         return;
     }
 
@@ -87,16 +85,13 @@ function showFullNews(title, text, imgSrc) {
         modalImg.style.backgroundColor = "#000";
     }
 
-    // تشغيل المودال بطريقة تمنع تعارض المكتبات
     if (typeof bootstrap !== 'undefined') {
         const myModal = new bootstrap.Modal(modalEl);
         myModal.show();
-    } else {
-        console.error("Bootstrap library is not loaded!");
     }
 }
 
-// 5. تعديل سلوك التنقل داخل الصفحة (Smooth Scroll)
+// 5. السكرول الناعم (تم التعديل ليناسب الموبايل والنافبار الـ Fixed)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -104,10 +99,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if(targetId === '#') return;
         const target = document.querySelector(targetId);
         if (target) {
+            // حساب ارتفاع النافبار الفعلي عشان السكرول م يغطيش العنوان
+            const navHeight = document.querySelector('.navbar').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
             window.scrollTo({
-                top: target.offsetTop - 70, 
+                top: targetPosition, 
                 behavior: 'smooth'
             });
+
+            // قفل قائمة الموبايل أوتوماتيكياً بعد الضغط على أي رابط
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                bsCollapse.hide();
+            }
         }
     });
 });
