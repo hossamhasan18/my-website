@@ -163,6 +163,12 @@ body {
     transition: 0.4s;
     display: inline-block;
 }
+.btn-gold-fill:hover {
+    background-color: #C5A059 !important; /* درجة ذهبي أغمق سنة بدلاً من السكري */
+    color: #000000 !important; /* يفضل النص أسود */
+    transform: translateY(-3px); /* حركة الرفع اللي طلبناها */
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4) !important; /* توهج ذهبي */
+}
 .btn-outline-gold {
     border: 1px solid var(--gold); 
     color: var(--gold);
@@ -328,6 +334,40 @@ body {
 
 .read-more:hover i {
     transform: translateX(-5px);
+}
+/* كود تحويل لون اسم النائب بين الأبيض والذهبي تلقائياً */
+.hero-name {
+    animation: pulseColor 3s infinite alternate ease-in-out;
+    font-weight: 900; /* لضمان ظهور اللون بوضوح */
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.2); /* وهج خفيف يعزز الفخامة */
+}
+
+@keyframes pulseColor {
+    0% {
+        color: #ffffff; /* اللون الأبيض */
+    }
+    100% {
+        color: #c5a059; /* اللون الذهبي الخاص بالموقع */
+    }
+}
+/* إصلاح مشكلة خروج النص بره الإطار في المودال ولوحة التحكم */
+#modalBody, 
+.modal-body,
+.card-text, 
+.info-item p, 
+.service-card p,
+.table td {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    max-width: 100% !important;
+}
+
+/* تنسيق إضافي للمودال لراحة العين */
+.modal-body {
+    padding: 25px !important;
+    text-align: right !important;
+    line-height: 1.8;
 }
 
 /* ============================================

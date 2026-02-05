@@ -21,13 +21,13 @@ window.addEventListener('load', () => {
     }
 });
 
-// 3. دالة جلب الأخبار (نفس التنسيق بتاعك بالظبط)
+// 3. دالة جلب الأخبار (معدلة لتقرأ من image_path وتمنع الكاش)
 async function fetchNews() {
     const container = document.getElementById('newsContainer');
     if (!container) return;
 
     try {
-        const response = await fetch('get_news.php');
+        const response = await fetch('get_news.php?v=' + new Date().getTime());
         const data = await response.json();
 
         if (!data || data.length === 0) {
@@ -36,24 +36,32 @@ async function fetchNews() {
         }
 
         container.innerHTML = '';
-        data.forEach(item => {
-            const safeTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-            const safeDesc = item.description.replace(/'/g, "\\'").replace(/"/g, "&quot;").replace(/\n/g, "<br>");
-            const imgPath = `uploads/news/${item.image}`;
+        
+        // التعديل هنا: نأخذ أول 3 أخبار فقط باستخدام slice(0, 3)
+        const latestNews = data.slice(0, 3);
+
+        latestNews.forEach(item => {
+            const safeTitle = item.title ? item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
+            const safeDetails = item.details ? item.details.replace(/'/g, "\\'").replace(/"/g, "&quot;").replace(/\n/g, "<br>") : "";
+            
+            // مسار الصورة المعدل ليظهر كاملة
+            const imgPath = item.image_path.startsWith('uploads/') ? item.image_path : `uploads/news/${item.image_path}`;
 
             container.innerHTML += `
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="card news-card h-100 gold-border-hover bg-black">
-                        <div class="news-img-box" style="height: 250px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <div class="card news-card h-100 gold-border-hover bg-black shadow-sm" style="border-radius: 15px; overflow: hidden;">
+                        <div class="news-img-box" style="height: 230px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                             <img src="${imgPath}" class="card-img-top" 
                                  style="max-width: 100%; max-height: 100%; object-fit: contain;" 
                                  onerror="this.src='abdo.jpeg'">
                         </div>
-                        <div class="card-body p-4 text-end">
+                        <div class="card-body p-4 text-end text-white d-flex flex-column">
                             <h5 class="card-title gold-text brand-ruqaa">${item.title}</h5>
-                            <p class="card-text text-light-gray small">${item.description.substring(0, 100)}...</p>
-                            <button class="btn btn-link gold-text p-0 text-decoration-none fw-bold" 
-                                onclick="showFullNews('${safeTitle}', '${safeDesc}', '${imgPath}')">
+                            <p class="card-text text-white small" style="opacity: 0.8; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                ${item.details ? item.details : ""}
+                            </p>
+                            <button class="btn btn-outline-gold btn-sm mt-3 w-100" 
+                                onclick="showFullNews('${safeTitle}', '${safeDetails}', '${imgPath}')">
                                 اقرأ المزيد <i class="fas fa-arrow-left ms-2"></i>
                             </button>
                         </div>

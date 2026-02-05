@@ -2,25 +2,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     loadComplaints();
     loadSuggestions();
-    loadAdminNews();
+    displayNewsForAdmin(); 
 });
 
-// 2. وظيفة جلب الشكاوى وعرضها في الجدول مع خانة الرد السريع
+// دالة موحدة لرسائل التنبيه (SweetAlert)
+const toast = (title, icon = 'success') => {
+    Swal.fire({
+        title: title,
+        icon: icon,
+        timer: 2000,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end',
+        background: '#111',
+        color: '#fff'
+    });
+};
+
+// 2. وظيفة جلب الشكاوى وعرضها في الجدول
 async function loadComplaints() {
     try {
         const response = await fetch('get_complaints.php');
         const complaints = await response.json();
         const tableBody = document.getElementById('complaintsTable');
         
-        // --- التعديل هنا فقط لتحديث العدادات المربوطة بالـ ID في الـ HTML ---
-        if(document.getElementById('total-count')) {
-            document.getElementById('total-count').textContent = complaints.length;
-        }
+        if(document.getElementById('total-count')) document.getElementById('total-count').textContent = complaints.length;
         if(document.getElementById('solved-count')) {
             const solved = complaints.filter(item => item.status === 'solved').length;
             document.getElementById('solved-count').textContent = solved;
         }
-        // -----------------------------------------------------------------
 
         if (!tableBody) return;
         tableBody.innerHTML = ''; 
@@ -33,30 +43,21 @@ async function loadComplaints() {
 
             tableBody.innerHTML += `
                 <tr>
-                    <td>#${item.order_number}</td>
-                    <td>${item.full_name}</td>
-                    <td>${item.phone}</td>
+                    <td style="color: #ffffff !important;">#${item.order_number}</td>
+                    <td style="color: #ffffff !important;">${item.full_name}</td>
+                    <td style="color: #ffffff !important;">${item.phone}</td>
                     <td>
                         <div class="d-flex gap-1">
-                            <input type="text" id="reply-${item.order_number}" 
-                                   class="form-control form-control-sm bg-black text-white border-secondary" 
-                                   style="font-size:0.8rem;"
-                                   placeholder="اكتب ردك..." value="${item.admin_reply || ''}">
-                            <button class="btn btn-sm btn-gold-fill" onclick="sendQuickReply('${item.order_number}')">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+                            <input type="text" id="reply-${item.order_number}" class="form-control form-control-sm bg-black text-white border-secondary" placeholder="اكتب ردك..." value="${item.admin_reply || ''}">
+                            <button class="btn btn-sm btn-gold-fill" onclick="sendQuickReply('${item.order_number}')"><i class="fas fa-paper-plane"></i></button>
                         </div>
                     </td>
                     <td><span class="badge ${statusClass}">${statusText}</span></td>
                     <td>
                         <div class="btn-group gap-1">
-                            <button class="btn btn-sm btn-outline-warning" onclick="viewDetails('${item.order_number}')">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                            <button class="btn btn-sm btn-outline-warning" onclick="viewDetails('${item.order_number}')"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-sm btn-success" onclick="updateStatus('${item.order_number}', 'solved')">حل</button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteComplaint('${item.order_number}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteComplaint('${item.order_number}')"><i class="fas fa-trash"></i></button>
                         </div>
                     </td>
                 </tr>`;
@@ -64,110 +65,7 @@ async function loadComplaints() {
     } catch (e) { console.error("خطأ في جلب الشكاوى"); }
 }
 
-// 3. وظيفة إرسال الرد السريع للمواطن
-async function sendQuickReply(orderNo) {
-    const replyValue = document.getElementById(`reply-${orderNo}`).value;
-    const fd = new FormData();
-    fd.append('order_number', orderNo);
-    fd.append('reply', replyValue);
-    fd.append('action', 'save_reply');
-
-    try {
-        const res = await fetch('update_status.php', { method: 'POST', body: fd });
-        const data = await res.json();
-        if(data.status === 'success') {
-            Swal.fire({ 
-                title: 'تم حفظ الرد!', 
-                icon: 'success', 
-                toast: true, 
-                position: 'top-end', 
-                showConfirmButton: false, 
-                timer: 2000,
-                background: '#111',
-                color: '#fff'
-            });
-        }
-    } catch (e) { console.error("خطأ في إرسال الرد"); }
-}
-
-// 4. وظيفة عرض تفاصيل الشكوى (زرار العين)
-async function viewDetails(orderNo) {
-    try {
-        const res = await fetch('get_complaints.php');
-        const data = await res.json();
-        const item = data.find(c => String(c.order_number) === String(orderNo));
-
-        if(item) {
-            document.getElementById('m-order-no').textContent = item.order_number;
-            document.getElementById('m-name').textContent = item.full_name;
-            document.getElementById('m-phone').textContent = item.phone;
-            document.getElementById('m-national-id').textContent = item.national_id;
-            document.getElementById('m-village').textContent = item.village;
-            document.getElementById('m-type').textContent = item.req_type;
-            document.getElementById('m-message').textContent = item.message;
-
-            const img = document.getElementById('m-attachment-img');
-            const link = document.getElementById('m-attachment-link');
-            const wrapper = document.getElementById('m-attachment-wrapper');
-            
-            if(item.attachment) {
-                img.src = 'uploads/' + item.attachment;
-                link.href = 'uploads/' + item.attachment;
-                if(wrapper) wrapper.style.display = 'block';
-            } else {
-                if(wrapper) wrapper.style.display = 'none';
-            }
-
-            var myModal = new bootstrap.Modal(document.getElementById('complaintModal'));
-            myModal.show();
-        }
-    } catch (e) { console.error("خطأ في عرض التفاصيل"); }
-}
-
-// 5. وظيفة مسح الشكوى
-async function deleteComplaint(orderNo) {
-    const result = await Swal.fire({
-        title: 'هل أنت متأكد؟',
-        text: `سيتم حذف الطلب رقم #${orderNo} نهائياً`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'نعم، احذف',
-        cancelButtonText: 'إلغاء',
-        background: '#111', color: '#fff'
-    });
-
-    if (result.isConfirmed) {
-        const fd = new FormData();
-        fd.append('order_number', orderNo);
-        fd.append('action', 'delete');
-        try {
-            const res = await fetch('update_status.php', { method: 'POST', body: fd });
-            const resData = await res.json();
-            if(resData.status === 'success') {
-                Swal.fire({ title: 'تم الحذف!', icon: 'success', background: '#111', color: '#fff' });
-                loadComplaints();
-            }
-        } catch (e) { console.error("خطأ في المسح"); }
-    }
-}
-
-// 6. وظيفة تحديث الحالة
-async function updateStatus(orderNo, newStatus) {
-    const fd = new FormData();
-    fd.append('order_number', orderNo);
-    fd.append('status', newStatus);
-    fd.append('action', 'update');
-
-    const res = await fetch('update_status.php', { method: 'POST', body: fd });
-    const result = await res.json();
-    if(result.status === 'success') {
-        Swal.fire({ title: 'تم التحديث!', icon: 'success', background: '#111', color: '#fff' });
-        loadComplaints();
-    }
-}
-
-// 7. وظائف المقترحات والأخبار
+// 3. وظيفة جلب المقترحات
 async function loadSuggestions() {
     try {
         const response = await fetch('get_suggestions.php');
@@ -178,20 +76,17 @@ async function loadSuggestions() {
         tableBody.innerHTML = ''; 
 
         data.forEach(item => {
+            const itemData = JSON.stringify(item).replace(/'/g, "&apos;");
             tableBody.innerHTML += `
                 <tr>
-                    <td>${item.full_name}</td>
-                    <td>${item.phone}</td>
-                    <td>${item.village}</td>
+                    <td style="color: #ffffff !important;">${item.full_name}</td>
+                    <td style="color: #ffffff !important;">${item.phone}</td>
+                    <td style="color: #ffffff !important;">${item.village}</td>
                     <td><span class="badge bg-outline-warning" style="border:1px solid #d4af37; color:#d4af37">${item.category}</span></td>
                     <td>
                         <div class="btn-group gap-2">
-                            <button class="btn btn-sm btn-outline-warning" onclick='viewSuggestionDetails(${JSON.stringify(item)})'>
-                                <i class="fas fa-eye"></i> عرض
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteSuggestion(${item.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <button class="btn btn-sm btn-outline-warning" onclick='viewSuggestionDetails(${itemData})'><i class="fas fa-eye"></i> عرض</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteSuggestion(${item.id})"><i class="fas fa-trash"></i></button>
                         </div>
                     </td>
                 </tr>`;
@@ -199,53 +94,196 @@ async function loadSuggestions() {
     } catch (e) { console.error("خطأ في جلب المقترحات"); }
 }
 
+// 4. دالة عرض التفاصيل (المودال)
+async function viewDetails(orderNo) {
+    try {
+        const response = await fetch('get_complaints.php');
+        const complaints = await response.json();
+        const item = complaints.find(c => String(c.order_number) === String(orderNo));
+
+        if (item) {
+            document.getElementById('m-order-no').textContent = item.order_number;
+            document.getElementById('m-name').textContent = item.full_name;
+            document.getElementById('m-phone').textContent = item.phone;
+            document.getElementById('m-village').textContent = item.village;
+            document.getElementById('m-national-id').textContent = item.national_id || 'غير مسجل';
+            document.getElementById('m-type').textContent = item.req_type;
+            document.getElementById('m-message').textContent = item.message;
+
+            const imgWrapper = document.getElementById('m-attachment-wrapper');
+            const imgTag = document.getElementById('m-attachment-img');
+            const photo = item.image_path || item.attachment;
+
+            if (photo) {
+                imgTag.src = 'uploads/' + photo;
+                if(imgWrapper) imgWrapper.style.display = 'block';
+            } else {
+                if(imgWrapper) imgWrapper.style.display = 'none';
+            }
+
+            new bootstrap.Modal(document.getElementById('complaintModal')).show();
+        }
+    } catch (e) { console.error("خطأ"); }
+}
+
+// 5. دالة الرد السريع ببوكس تنبيه
+async function sendQuickReply(orderNo) {
+    const replyValue = document.getElementById(`reply-${orderNo}`).value;
+    const fd = new FormData();
+    fd.append('order_number', orderNo);
+    fd.append('reply', replyValue);
+    fd.append('action', 'save_reply');
+    
+    await fetch('update_status.php', { method: 'POST', body: fd });
+    toast('تم حفظ الرد وإرساله');
+}
+
+// 6. دالة حل الشكوى ببوكس تأكيد
+async function updateStatus(orderNo, newStatus) {
+    Swal.fire({
+        title: 'تأكيد الحل',
+        text: "هل تريد وضع علامة 'تم الحل' على هذه الشكوى؟",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#333',
+        confirmButtonText: 'نعم، تم الحل',
+        cancelButtonText: 'تراجع',
+        background: '#111', color: '#fff'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const fd = new FormData();
+            fd.append('order_number', orderNo);
+            fd.append('status', newStatus);
+            fd.append('action', 'update');
+            await fetch('update_status.php', { method: 'POST', body: fd });
+            loadComplaints();
+            toast('تم تحديث الحالة بنجاح');
+        }
+    });
+}
+
+// 7. دالة الحذف ببوكس احترافي
+async function deleteComplaint(orderNo) {
+    Swal.fire({
+        title: 'حذف الشكوى؟',
+        text: "لن يمكنك استعادة هذه البيانات مرة أخرى!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#333',
+        confirmButtonText: 'إلغاء نهائي',
+        cancelButtonText: 'تراجع',
+        background: '#111', color: '#fff'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const fd = new FormData();
+            fd.append('order_number', orderNo);
+            fd.append('action', 'delete');
+            await fetch('update_status.php', { method: 'POST', body: fd });
+            loadComplaints();
+            toast('تم الحذف بنجاح', 'error');
+        }
+    });
+}
+
+// 8. حذف المقترح ببوكس
+async function deleteSuggestion(id) {
+    Swal.fire({
+        title: 'حذف المقترح؟',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        confirmButtonText: 'حذف',
+        background: '#111', color: '#fff'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            await fetch(`delete_suggestion.php?id=${id}`);
+            loadSuggestions();
+            toast('تم حذف المقترح');
+        }
+    });
+}
+
+// دالة المقترحات
 function viewSuggestionDetails(item) {
     document.getElementById('s-name').textContent = item.full_name;
     document.getElementById('s-phone').textContent = item.phone;
-    document.getElementById('s-national-id').textContent = item.national_id;
     document.getElementById('s-village').textContent = item.village;
     document.getElementById('s-category').textContent = item.category;
     document.getElementById('s-details').textContent = item.details;
     new bootstrap.Modal(document.getElementById('suggestionModal')).show();
 }
 
-async function deleteSuggestion(id) {
-    const result = await Swal.fire({
-        title: 'هل أنت متأكد؟',
-        text: "سيتم حذف المقترح نهائياً",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'نعم، احذف',
-        cancelButtonText: 'إلغاء',
-        background: '#111', color: '#fff'
-    });
-    if (result.isConfirmed) {
-        fetch(`delete_suggestion.php?id=${id}`)
-        .then(() => {
-            Swal.fire({ title: 'تم الحذف!', icon: 'success', background: '#111', color: '#fff' });
-            loadSuggestions();
+// دالة الأخبار المحدثة
+async function displayNewsForAdmin() {
+    const tableBody = document.getElementById('newsManagementTable');
+    if (!tableBody) return;
+    try {
+        const response = await fetch('get_news.php?all=true');
+        const data = await response.json();
+        tableBody.innerHTML = ''; 
+        data.forEach(item => {
+            const itemJSON = JSON.stringify(item).replace(/"/g, '&quot;');
+            
+            // التعديل هنا: أضفنا مسار المجلد قبل اسم الصورة
+            tableBody.innerHTML += `<tr>
+                <td><img src="uploads/news/${item.image_path}" style="width:60px; height:40px; border-radius:5px; object-fit:cover;" onerror="this.src='logo.png'"></td>
+                <td style="color:#fff">${item.title}</td>
+                <td style="color:#aaa; font-size: 0.85rem;">
+                    <span class="text-truncate-custom" style="max-width: 150px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        ${item.details || ''}
+                    </span>
+                </td>
+                <td class="text-secondary">${item.created_at || ''}</td>
+                <td>
+                    <div class="btn-group gap-1">
+                        <button onclick='viewNewsItem(${itemJSON})' class="btn btn-outline-info btn-sm"><i class="fas fa-eye"></i></button>
+                        <button onclick='openEditNewsModal(${itemJSON})' class="btn btn-outline-warning btn-sm"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteNews(${item.id})" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>`;
         });
-    }
+    } catch (e) { console.error("Error loading news", e); }
 }
 
-function loadAdminNews() {
-    fetch('get_admin_news.php').then(res => res.json()).then(data => {
-        const tbody = document.getElementById('newsAdminTable');
-        if(!tbody) return;
-        tbody.innerHTML = '';
-        data.forEach(item => {
-            tbody.innerHTML += `
-                <tr>
-                    <td><img src="uploads/news/${item.image_path}" width="50" class="rounded"></td>
-                    <td>${item.title}</td>
-                    <td>${item.created_at}</td>
-                    <td>
-                        <a href="delete_news.php?id=${item.id}" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد؟')">
-                            <i class="fas fa-trash"></i> حذف
-                        </a>
-                    </td>
-                </tr>`;
-        });
+// دالة لفتح مودال التعديل وملء البيانات
+function openEditNewsModal(item) {
+    document.getElementById('edit-news-id').value = item.id;
+    document.getElementById('edit-news-title').value = item.title;
+    document.getElementById('edit-news-text').value = item.details || '';
+    new bootstrap.Modal(document.getElementById('editNewsModal')).show();
+}
+
+// دالة لعرض الخبر في مودال العرض بشكل منسق
+function viewNewsItem(item) {
+    document.getElementById('v-news-title').textContent = item.title;
+    
+    // التعديل هنا: أضفنا مسار المجلد قبل اسم الصورة
+    const newsImg = document.getElementById('v-news-img');
+    newsImg.src = "uploads/news/" + item.image_path; 
+    
+    const contentDiv = document.getElementById('m-news-content-view');
+    contentDiv.textContent = item.details || 'لا يوجد تفاصيل لهذا الخبر';
+    
+    new bootstrap.Modal(document.getElementById('viewNewsModal')).show();
+}
+
+function deleteNews(id) {
+    Swal.fire({
+        title: 'حذف الخبر؟',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        confirmButtonText: 'نعم، احذف',
+        background: '#111', color: '#fff'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`delete_news.php?id=${id}`).then(() => {
+                displayNewsForAdmin();
+                toast('تم حذف الخبر');
+            });
+        }
     });
 }

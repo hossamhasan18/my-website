@@ -27,6 +27,25 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             border-color: #d4af37 !important;
             box-shadow: none;
         }
+
+        /* التعديل المطلوب لحل مشكلة خروج النص بره الصندوق */
+        #m-message, #s-details, #m-news-content-view {
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important; 
+            white-space: pre-wrap !important;
+            max-height: 400px;
+            overflow-y: auto;
+            text-align: justify;
+            line-height: 1.6;
+        }
+        .text-truncate-custom {
+            max-width: 150px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -39,6 +58,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
         <nav class="sidebar-nav">
             <a href="#" class="nav-item active"><i class="fas fa-chart-line"></i> الإحصائيات</a>
             <a href="#posts-section" class="nav-item"><i class="fas fa-plus-circle"></i> نشر خبر</a>
+            <a href="#manage-posts-section" class="nav-item"><i class="fas fa-edit"></i> إدارة الأخبار</a>
             <a href="#complaints-section" class="nav-item"><i class="fas fa-tasks"></i> إدارة الشكاوى</a>
             <a href="#suggestions-section" class="nav-item"><i class="fas fa-lightbulb"></i> المقترحات الواردة</a>
             <a href="logout.php" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> خروج</a>
@@ -125,6 +145,25 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                 </table>
             </div>
         </section>
+
+        <section id="manage-posts-section" class="content-card mb-5">
+            <h4 class="brand-ruqaa gold-text mb-4">إدارة الأخبار المنشورة</h4>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>الصورة</th>
+                            <th>عنوان الخبر</th>
+                            <th>نص الخبر</th>
+                            <th>تاريخ النشر</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="newsManagementTable">
+                        </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <div class="modal fade" id="complaintModal" tabindex="-1" aria-hidden="true">
@@ -177,6 +216,52 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                             <div id="s-details" class="p-3 border rounded bg-black text-light"></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editNewsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white" style="border: 1px solid #d4af37; border-radius: 15px;">
+                <form id="editNewsForm" action="upload_news.php" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title gold-text brand-ruqaa">تعديل الخبر</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body text-end">
+                        <input type="hidden" name="news_id" id="edit-news-id">
+                        <div class="mb-3">
+                            <label class="form-label">العنوان</label>
+                            <input type="text" name="news_title" id="edit-news-title" class="form-control bg-black text-white border-secondary" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">النص</label>
+                            <textarea name="news_text" id="edit-news-text" class="form-control bg-black text-white border-secondary" rows="5" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">تحديث الصورة (اختياري)</label>
+                            <input type="file" name="news_image" class="form-control bg-black text-white border-secondary" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning text-dark fw-bold">حفظ التغييرات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewNewsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white" style="border: 1px solid #d4af37; border-radius: 15px;">
+                <div class="modal-header">
+                    <h5 class="modal-title gold-text brand-ruqaa" id="v-news-title"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-end">
+                    <img id="v-news-img" src="" class="img-fluid rounded mb-3 border border-secondary w-100" style="max-height: 400px; object-fit: cover;">
+                    <div id="m-news-content-view" class="p-3 bg-black rounded border border-secondary"></div>
                 </div>
             </div>
         </div>
